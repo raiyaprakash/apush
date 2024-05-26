@@ -1,2 +1,5 @@
 /uploads/*
-  Cache-Control: public, max-age=2592000
+  Cache-Control: public, max-age=31536000
+
+/autopush_http_prompt.js*
+  Cache-Control: public, max-age=3600
