@@ -3,3 +3,6 @@
 
 /autopush_http_prompt.js*
   Cache-Control: public, max-age=3600
+
+/autopush_prompt.js?ver=1.0
+  Cache-Control: public, max-age=31536000
