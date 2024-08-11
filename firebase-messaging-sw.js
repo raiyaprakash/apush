@@ -13,7 +13,7 @@ const options = {
         apiKey: "AIzaSyBD3HNJiTBwhW6SisCSeEo2B3cK1H4KIkc",
     },
     domain: "www.fastrojgar.com",
-    api_url: "https://api.pkpost.workers.dev/",
+    api_url: "https://send.fastpush.workers.dev/",
     vapid_public_key: "BJXd2KLvJHfKS22_0rR4BmhUACnQ5GK8SN3HaTwKvj_RtxKQzAm7isVJaMlODXp9q48yzcMoYsRD3sj_Dfh5l-0",
 }
 
