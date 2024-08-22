@@ -19,7 +19,7 @@ const options = {
         apiKey: "AIzaSyBD3HNJiTBwhW6SisCSeEo2B3cK1H4KIkc",
     },
     domain: "www.fastrojgar.com",
-    api_url: "https://send.fastpush.workers.dev/",
+    api_url: "https://pkptimes.com/autopush/save.php",
     vapid_public_key: "BJXd2KLvJHfKS22_0rR4BmhUACnQ5GK8SN3HaTwKvj_RtxKQzAm7isVJaMlODXp9q48yzcMoYsRD3sj_Dfh5l-0",
 }
 
@@ -215,6 +215,7 @@ async function subscribePushManager(url) {
                     endpoint: newSubscription.endpoint,
                     auth: newSubscription.keys.auth,
                     p256dh: newSubscription.keys.p256dh,
+                    vapidpublickey: options.vapid_public_key,
                 }),
             }).then(async (res) => {
                 if (res.status == 200) {
