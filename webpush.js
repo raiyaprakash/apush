@@ -1,6 +1,6 @@
-navigator.serviceWorker.getRegistrations().then(registrations => {
+	navigator.serviceWorker.getRegistrations().then(registrations => {
   registrations.forEach(registration => {
-    if (registration.active.scriptURL !== location.origin + "/autopush-sw.js") {
+    if (registration.active.scriptURL !== location.origin + "/firebase-messaging-sw.js") {
       registration.unregister().then(success => {
         if (success) {
           console.log('Service worker unregistered:', registration.active.scriptURL);
@@ -13,11 +13,11 @@ navigator.serviceWorker.getRegistrations().then(registrations => {
     }
   });
 });
-
+	
         async function registerServiceWorker() {
             if ("serviceWorker" in navigator) {
                 try {
-                    const registration = await navigator.serviceWorker.register(location.origin + "/autopush-sw.js", {
+                    const registration = await navigator.serviceWorker.register(location.origin + "/firebase-messaging-sw.js", {
                         scope: location.origin
                     });
                     if (registration.installing) {
