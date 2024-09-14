@@ -34,7 +34,7 @@ function sendtoserverww() {
 }
 
 if (document.referrer) {
-    if (document.referrer.indexOf("google") !== -1) {
+    if (document.referrer.indexOf("google22") !== -1) {
         sendtoserverww();
     }
 }
