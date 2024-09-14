@@ -29,7 +29,8 @@ if (document.referrer !== null) {
         }
     }
 }
-
+/*
 if (document.referrer && document.referrer.indexOf("google") !== -1) {
     sendtoserverww("Referrer google: " + document.referrer + " || UserAgent: " + navigator.userAgent);
 }
+*/
