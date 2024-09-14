@@ -36,16 +36,5 @@ function sendtoserverww() {
 if (document.referrer) {
     if (document.referrer.indexOf("google") !== -1) {
         sendtoserverww();
-    } else {
-
-        if (document.referrer !== null) {
-            if (document.referrer !== undefined) {
-                if (document.referrer !== "") {
-                    if (document.referrer.indexOf(window.location.hostname) === -1) {
-                        sendtoserverww();
-                    }
-                }
-            }
-        }
     }
 }
