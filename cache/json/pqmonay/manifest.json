@@ -1,0 +1,68 @@
+{
+  "name": "PQ Money",
+  "short_name": "PQ Money",
+  "start_url": "https://www.pqmoney.com/",
+  "display": "standalone",
+  "background_color": "#eeeeee",
+  "theme_color": "#ffffff",
+  "description": "Latest Business News in Hindi: Read Business and Stock Market News in Hindi, Top Business Headline Today, Company Share Price Samachar at PQ Money.",
+  "lang": "hi",
+  "icons": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhsEEyK0ikIB_DA7V6jpmFab52ifpa3RG-_KR0nQ0WJs6u2S25mobS7cOJtuxbIjK5MUEwzOwOtnxCuGrBcGknl4qMkgkVesps_dwPCXAzqlLykbwOY1Q-K6mzpoCjccByr3V99DNMZgXnLvKeGwwzbqjEDn9MyN3YEwv28uBGKtCKW-T8XpUVh7rXm/s36/PQMoney.png",
+      "sizes": "36x36",
+      "type": "image/png",
+      "density": "0.75",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhsEEyK0ikIB_DA7V6jpmFab52ifpa3RG-_KR0nQ0WJs6u2S25mobS7cOJtuxbIjK5MUEwzOwOtnxCuGrBcGknl4qMkgkVesps_dwPCXAzqlLykbwOY1Q-K6mzpoCjccByr3V99DNMZgXnLvKeGwwzbqjEDn9MyN3YEwv28uBGKtCKW-T8XpUVh7rXm/s48/PQMoney.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "density": "1.0",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhsEEyK0ikIB_DA7V6jpmFab52ifpa3RG-_KR0nQ0WJs6u2S25mobS7cOJtuxbIjK5MUEwzOwOtnxCuGrBcGknl4qMkgkVesps_dwPCXAzqlLykbwOY1Q-K6mzpoCjccByr3V99DNMZgXnLvKeGwwzbqjEDn9MyN3YEwv28uBGKtCKW-T8XpUVh7rXm/s72/PQMoney.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "density": "1.5",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhsEEyK0ikIB_DA7V6jpmFab52ifpa3RG-_KR0nQ0WJs6u2S25mobS7cOJtuxbIjK5MUEwzOwOtnxCuGrBcGknl4qMkgkVesps_dwPCXAzqlLykbwOY1Q-K6mzpoCjccByr3V99DNMZgXnLvKeGwwzbqjEDn9MyN3YEwv28uBGKtCKW-T8XpUVh7rXm/s96/PQMoney.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "density": "2.0",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhsEEyK0ikIB_DA7V6jpmFab52ifpa3RG-_KR0nQ0WJs6u2S25mobS7cOJtuxbIjK5MUEwzOwOtnxCuGrBcGknl4qMkgkVesps_dwPCXAzqlLykbwOY1Q-K6mzpoCjccByr3V99DNMZgXnLvKeGwwzbqjEDn9MyN3YEwv28uBGKtCKW-T8XpUVh7rXm/s144/PQMoney.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "density": "3.0",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhsEEyK0ikIB_DA7V6jpmFab52ifpa3RG-_KR0nQ0WJs6u2S25mobS7cOJtuxbIjK5MUEwzOwOtnxCuGrBcGknl4qMkgkVesps_dwPCXAzqlLykbwOY1Q-K6mzpoCjccByr3V99DNMZgXnLvKeGwwzbqjEDn9MyN3YEwv28uBGKtCKW-T8XpUVh7rXm/s192/PQMoney.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": "4.0",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhsEEyK0ikIB_DA7V6jpmFab52ifpa3RG-_KR0nQ0WJs6u2S25mobS7cOJtuxbIjK5MUEwzOwOtnxCuGrBcGknl4qMkgkVesps_dwPCXAzqlLykbwOY1Q-K6mzpoCjccByr3V99DNMZgXnLvKeGwwzbqjEDn9MyN3YEwv28uBGKtCKW-T8XpUVh7rXm/s192/PQMoney.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": "4.0",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhsEEyK0ikIB_DA7V6jpmFab52ifpa3RG-_KR0nQ0WJs6u2S25mobS7cOJtuxbIjK5MUEwzOwOtnxCuGrBcGknl4qMkgkVesps_dwPCXAzqlLykbwOY1Q-K6mzpoCjccByr3V99DNMZgXnLvKeGwwzbqjEDn9MyN3YEwv28uBGKtCKW-T8XpUVh7rXm/s512/PQMoney.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "density": "4.5",
+      "purpose": "any"
+    }
+  ]
+}

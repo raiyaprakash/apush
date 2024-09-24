@@ -1,0 +1,68 @@
+{
+  "name": "Sarkari Goal",
+  "short_name": "Sarkari Goal",
+  "start_url": "https://www.sarkarigoal.com/",
+  "display": "standalone",
+  "background_color": "#eeeeee",
+  "theme_color": "#2231ff",
+  "description": "Sarkari Goal is the most Trusted Study Material, Education and Exam Preparation Portal in Hindi Language.",
+  "lang": "hi",
+  "icons": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNdeoXSfytn2fGVGGmOeT1OIyicc13Per6mnX_s23QgTkgJoc_fJ_-L_UmyKwx9BBdR8YwKtmlOnCl1292GpVPWZII-4lC0ILHuhpKjWi3eG2YN-qFxkP5PMDJzY9XQDU_foKDum_zwo02Ea7je_lu8QoMfNtO_MYq019uA33797Ipw81obX5mBy_dis4/s36/SG.png",
+      "sizes": "36x36",
+      "type": "image/png",
+      "density": "0.75",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNdeoXSfytn2fGVGGmOeT1OIyicc13Per6mnX_s23QgTkgJoc_fJ_-L_UmyKwx9BBdR8YwKtmlOnCl1292GpVPWZII-4lC0ILHuhpKjWi3eG2YN-qFxkP5PMDJzY9XQDU_foKDum_zwo02Ea7je_lu8QoMfNtO_MYq019uA33797Ipw81obX5mBy_dis4/s48/SG.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "density": "1.0",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNdeoXSfytn2fGVGGmOeT1OIyicc13Per6mnX_s23QgTkgJoc_fJ_-L_UmyKwx9BBdR8YwKtmlOnCl1292GpVPWZII-4lC0ILHuhpKjWi3eG2YN-qFxkP5PMDJzY9XQDU_foKDum_zwo02Ea7je_lu8QoMfNtO_MYq019uA33797Ipw81obX5mBy_dis4/s72/SG.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "density": "1.5",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNdeoXSfytn2fGVGGmOeT1OIyicc13Per6mnX_s23QgTkgJoc_fJ_-L_UmyKwx9BBdR8YwKtmlOnCl1292GpVPWZII-4lC0ILHuhpKjWi3eG2YN-qFxkP5PMDJzY9XQDU_foKDum_zwo02Ea7je_lu8QoMfNtO_MYq019uA33797Ipw81obX5mBy_dis4/s96/SG.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "density": "2.0",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNdeoXSfytn2fGVGGmOeT1OIyicc13Per6mnX_s23QgTkgJoc_fJ_-L_UmyKwx9BBdR8YwKtmlOnCl1292GpVPWZII-4lC0ILHuhpKjWi3eG2YN-qFxkP5PMDJzY9XQDU_foKDum_zwo02Ea7je_lu8QoMfNtO_MYq019uA33797Ipw81obX5mBy_dis4/s144/SG.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "density": "3.0",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNdeoXSfytn2fGVGGmOeT1OIyicc13Per6mnX_s23QgTkgJoc_fJ_-L_UmyKwx9BBdR8YwKtmlOnCl1292GpVPWZII-4lC0ILHuhpKjWi3eG2YN-qFxkP5PMDJzY9XQDU_foKDum_zwo02Ea7je_lu8QoMfNtO_MYq019uA33797Ipw81obX5mBy_dis4/s192/SG.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": "4.0",
+      "purpose": "any"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNdeoXSfytn2fGVGGmOeT1OIyicc13Per6mnX_s23QgTkgJoc_fJ_-L_UmyKwx9BBdR8YwKtmlOnCl1292GpVPWZII-4lC0ILHuhpKjWi3eG2YN-qFxkP5PMDJzY9XQDU_foKDum_zwo02Ea7je_lu8QoMfNtO_MYq019uA33797Ipw81obX5mBy_dis4/s192/SG.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": "4.0",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNdeoXSfytn2fGVGGmOeT1OIyicc13Per6mnX_s23QgTkgJoc_fJ_-L_UmyKwx9BBdR8YwKtmlOnCl1292GpVPWZII-4lC0ILHuhpKjWi3eG2YN-qFxkP5PMDJzY9XQDU_foKDum_zwo02Ea7je_lu8QoMfNtO_MYq019uA33797Ipw81obX5mBy_dis4/s512/SG.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "density": "4.5",
+      "purpose": "any"
+    }
+  ]
+}
