@@ -66,34 +66,3 @@
                 console.error("error");
             }
         })();
-
-// Function to send live traffic data to the server
-function sendTrafficData() {
-    const pageVisited = window.location.pathname;
-    const domain = window.location.origin; // Get the domain from the current URL
-
-    // Prepare the data to send to the server
-    const trafficData = {
-        page: pageVisited,
-        domain : domain // Include the domain in the traffic data
-    };
-
-    // Send data to the server using fetch
-    fetch('https://api.autopush.in/track/live_traffic.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(trafficData)
-    }).then(response => response.text()).then(data => {
-        console.log('Server response:', data);
-    }).catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-sendTrafficData();
-// Detect and send traffic data every 30 seconds
-setInterval(() => {
-    sendTrafficData();
-}, 30000); // Sends data every 30 seconds
