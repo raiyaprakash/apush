@@ -33,7 +33,7 @@ function editpost() {
                 var type = matches[1]; // 'post'
                 var blogId = matches[2]; // First numeric value
                 var postId = matches[3]; // Second numeric value
-                var aTag = `<a href="https://draft.blogger.com/blog/${type}/edit/${blogId}/${postId}" title="edit" target="_blank" class="edit-link">Edit</a>`;
+                var aTag = `<a href="https://draft.blogger.com/blog/${type}/edit/${blogId}/${postId}" title="edit" target="_blank" style="color: #fff;padding: 0 15px;background: #000000;margin: 2px;font-size: 12px;text-decoration: none;line-height: 22px;text-align: center;position: fixed;z-index: 999;top: 20%;right: 0;">Edit</a>`;
                 element.innerHTML = aTag;
             } else {
                 console.error("ID format is incorrect. Expected format: edit-{type}-{blogId}-{postId}");
