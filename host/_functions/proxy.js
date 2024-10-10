@@ -7,17 +7,17 @@ export async function onRequest(context) {
     // Fetch the response from the Blogger site
     let originalResponse = await fetch(url.toString());
 
-    // Clone the original response to modify its body but keep the headers intact
+    // Clone the original response to modify its body
     let content = await originalResponse.text(); // Get the response body as text
 
-    // Replace all occurrences of fastrojgar.com with ipl.fast-rojgar.workers.dev
-    let modifiedContent = content.replace(/www\.fastrojgar\.com/g, 'ipl.fast-rojgar.workers.dev');
+    // Replace all occurrences of www.fastrojgar.com with cdn.autopush.in/host
+    let modifiedContent = content.replace(/www\.fastrojgar\.com/g, 'cdn.autopush.in/host');
 
     // Return the modified content as a new response
     return new Response(modifiedContent, {
         status: originalResponse.status,
         headers: {
-            ...Object.fromEntries(originalResponse.headers), // Copy over original headers
+            ...Object.fromEntries(originalResponse.headers), // Copy original headers
             'content-type': 'text/html; charset=UTF-8' // Ensure correct content type
         }
     });
