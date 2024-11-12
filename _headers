@@ -10,6 +10,9 @@
 /autopush_http_prompt.js*
   Cache-Control: public, max-age=3600
 
+/stats/*
+  Cache-Control: public, max-age=3600
+
 /webpush.js*
   Cache-Control: public, max-age=31536000
 
