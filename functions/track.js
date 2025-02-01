@@ -26,6 +26,11 @@ export const onRequest = async ({ request, env, params, waitUntil, next, data })
   };
 
   return new Response(JSON.stringify(responseData, null, 2), {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",  // Adjust the origin as needed
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization"
+  },
   });
 };
