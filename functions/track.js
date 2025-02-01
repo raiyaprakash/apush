@@ -1,15 +1,15 @@
 export const onRequest = async ({ request, env, params, waitUntil, next, data }) => {
-  const clientUA = request.headers.get('User-Agent') || 'unknown';
-  const clientIP = request.headers.get('CF-Connecting-IP') || 'unknown';
-  const clientASN = request.cf.asn || 'unknown';
-  const clientISP = request.cf.asOrganization || 'unknown';
-  const clientCO = request.cf.country || 'unknown';
-  const clientCI = request.cf.city || 'unknown';
-  const clientRE = request.cf.region || 'unknown';
-  const clientLAT = request.cf.latitude || 'unknown';
-  const clientLON = request.cf.longitude || 'unknown';
-  const clientPC = request.cf.postalCode || 'unknown';
-  const clientTZ = request.cf.timezone || 'unknown';
+  const clientUA = request.headers.get('User-Agent') || 'unknown Agent';
+  const clientIP = request.headers.get('CF-Connecting-IP') || 'unknown IP';
+  const clientASN = request.cf.asn || 'unknown asn';
+  const clientISP = request.cf.asOrganization || 'unknown asOrganization';
+  const clientCO = request.cf.country || 'unknown country';
+  const clientCI = request.cf.city || 'unknown city';
+  const clientRE = request.cf.region || 'unknown region';
+  const clientLAT = request.cf.latitude || 'unknown latitude';
+  const clientLON = request.cf.longitude || 'unknown longitude';
+  const clientPC = request.cf.postalCode || 'unknown postalCode';
+  const clientTZ = request.cf.timezone || 'unknown timezone';
 
   const responseData = {
     userAgent: clientUA,
