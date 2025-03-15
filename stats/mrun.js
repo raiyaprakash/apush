@@ -82,12 +82,26 @@ pvntsys(), isckMobile() || null != bpkc.get("tbckt") || bpkc.set("tbckt", 1, {
     secure: 1,
     "max-age": 3600
 }), detectIncognito().then(function (e) {
-    if (!e.isPrivate && (document.querySelector("body.single") || document.querySelector("body.postr.mobilemode") || document.querySelector(".apdy"))) {
-        const o = setInterval(function () {
-            var e = ['div[data-widget-id="1756183"]', 'div[data-widget-id="1751323"]', 'div[data-widget-id="1756199"]'],
-                t = e[Math.floor(Math.random() * e.length)];
-            (e = document.querySelector(t)) && "" !== e.innerText.trim() && (checkpkscs(t), clearInterval(o))
-        }, 1e3)
+    if (!e.isPrivate && (document.querySelector("body.single") || document.querySelector("body.postr.mobilemode") || document.querySelector(".apdy"))) {		
+const o = setInterval(function () {
+    var selectors = [
+        'div[data-widget-id="1756183"]',
+        'div[data-widget-id="1751323"]',
+        'div[data-widget-id="1756199"]'
+    ];
+
+    var randomSelector = selectors[Math.floor(Math.random() * selectors.length)];
+    var element = document.querySelector(randomSelector);
+
+    if (element && element.innerText.trim() !== "") {
+        checkpkscs(randomSelector);
+        clearInterval(o);
+    }else{
+		console.log("element not found");
+	}
+}, 1000);
+
+
     }
 }).catch(function (e) {
     console.error(e)
