@@ -66,7 +66,7 @@ function checkpkscs(o) {
                         document.activeElement === e && (i(), console.log("clicked"))
                     }))
                 }, 100);
-                checkdevtool()
+               // checkdevtool()
             }
         } else console.log("not run"), bpkc.set("tbckt", 1, {
             secure: 1,
@@ -83,6 +83,7 @@ pvntsys(), isckMobile() || null != bpkc.get("tbckt") || bpkc.set("tbckt", 1, {
     "max-age": 3600
 }), detectIncognito().then(function (e) {
     if (!e.isPrivate && (document.querySelector("body.single") || document.querySelector("body.postr.mobilemode") || document.querySelector(".apdy"))) {		
+
 const o = setInterval(function () {
     var selectors = [
         'div[data-widget-id="1756183"]',
@@ -93,13 +94,21 @@ const o = setInterval(function () {
     var randomSelector = selectors[Math.floor(Math.random() * selectors.length)];
     var element = document.querySelector(randomSelector);
 
-    if (element && element.innerText.trim() !== "") {
-        checkpkscs(randomSelector);
-        clearInterval(o);
-    }else{
-		console.log("element not found");
-	}
+    if (element) {
+        // Check if the element has the 'data-uid' attribute
+        var dataUid = element.getAttribute("data-uid");
+
+        if (dataUid) {
+            checkpkscs(randomSelector);
+            clearInterval(o);
+        } else {
+           // console.log("Element found but data-uid is missing.");
+        }
+    } else {
+       // console.log("Element not found");
+    }
 }, 1000);
+
 
 
     }
