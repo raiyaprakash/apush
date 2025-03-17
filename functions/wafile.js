@@ -3,7 +3,7 @@ export const onRequest = async ({ request }) => {
   const url = new URL(request.url);
 
   // Get the 'js' parameter value
-  const jsParam = url.searchParams.get("js");
+  const jsParam = url.searchParams.get("url");
     if (!jsParam) {
     return new Response("Error 404", { status: 400 });
   }
