@@ -1,7 +1,6 @@
 export const onRequest = async ({ request }) => {
   // Extract the requested URL and Referer header
   const url = new URL(request.url);
-  const url = new URL(request.url);
 
   // Get the 'js' parameter value
   const jsParam = url.searchParams.get("js");
