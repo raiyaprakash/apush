@@ -1,6 +1,13 @@
 export const onRequest = async ({ request }) => {
   // Extract the requested URL and Referer header
   const url = new URL(request.url);
+  const url = new URL(request.url);
+
+  // Get the 'js' parameter value
+  const jsParam = url.searchParams.get("js");
+    if (!jsParam) {
+    return new Response("Error 404", { status: 400 });
+  }
   const referer = request.headers.get("Referer") || "";
 
   // List of allowed domains
@@ -11,7 +18,7 @@ export const onRequest = async ({ request }) => {
 
   // Determine which script to return
   if (isFromAllowedDomain) {
-    return fetch("https://cdn.autopush.in/wa"+url.pathname.replace("/wafile","")+".js");
+    return fetch("https://cdn.autopush.in/wa/"+jsParam);
   }
   else {
     return fetch("https://cdn.autopush.in/wa/error.js");
