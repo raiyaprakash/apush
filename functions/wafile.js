@@ -11,7 +11,7 @@ export const onRequest = async ({ request }) => {
 
   // Determine which script to return
   if (isFromAllowedDomain) {
-    return fetch("https://cdn.autopush.in/wa"+url.pathname.replace("/wafile",""));
+    return fetch("https://cdn.autopush.in/wa"+url.pathname.replace("/wafile","")+".js");
   }
   else {
     return fetch("https://cdn.autopush.in/wa/error.js");
