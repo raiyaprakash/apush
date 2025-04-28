@@ -10,7 +10,7 @@ export const onRequest = async ({ request }) => {
   const referer = request.headers.get("Referer") || "";
 
   // List of allowed domains
-  const allowedDomains = ["web.whatsapp.com", "fastrojgar.in"];
+  const allowedDomains = ["web.whatsapp.com", "share.autopush.workers.dev"];
 
   // Check if the request is from an allowed domain
   const isFromAllowedDomain = allowedDomains.some(domain => referer.includes(domain));
