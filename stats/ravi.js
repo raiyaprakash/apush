@@ -10,7 +10,7 @@ function isckMobile() {
     const isBot = /bot|crawl|spider|baidu|bing|duckduck|google|yandex|yahoo|facebook|twitter/i.test(userAgent);
 
     // List of allowed domains
-    const allowedDomains = ['www.updatemarts.in', 'gyanbar.net', 'upprimarykamaster.in', 'www.newsyhunt.com', 'www.indiakasamachar.com', 'sarkarigroup.in', 'www.sarkarigoal.com', 'fastrojgar.in', 'www.fastrojgar.in', 'fastrojgar.com', 'www.fastrojgar.com', 'www.pkptimes.com', 'pkptimes.com'];
+    const allowedDomains = ['www.updatemarts.in', 'gyanbar.net', 'nbaplayersnetworth.com', 'upprimarykamaster.in', 'www.newsyhunt.com', 'www.indiakasamachar.com', 'sarkarigroup.in', 'www.sarkarigoal.com', 'fastrojgar.in', 'www.fastrojgar.in', 'fastrojgar.com', 'www.fastrojgar.com', 'www.pkptimes.com', 'pkptimes.com'];
 
     // Get the current domain
     const currentDomain = window.location.hostname;
@@ -65,23 +65,23 @@ function showad() {
     );
 	if(vignette){
 		anchor.style.opacity = "1";
-        console.log("opacity is 1");
+       // console.log("opacity is 1");
 	}
 }
 
 
 function checkpkscs() {
-console.log("checkpkscs");
+// console.log("checkpkscs");
 	if(!document.querySelector(".qdslb")){
-console.log("qdslb");
-    var expirationDate = new Date("Feb 12, 2025 00:00:00").getTime();
+// console.log("qdslb");
+    var expirationDate = new Date("Jun 10, 2025 00:00:00").getTime();
     var currentTime = (new Date).getTime();
 
     if (expirationDate - currentTime >= 0) {
     if (isckMobile()) {
 	
-console.log("isckMobile");
-		console.log("run");
+// console.log("isckMobile");
+		// console.log("run");
             if (null == bpkc.get("sgt")) {
 				
 				
@@ -91,7 +91,7 @@ console.log("isckMobile");
                             var height = anchor.getBoundingClientRect().height;
                             if (height >= 180) {
                                 anchor.style.opacity = "0";
-                                console.log("anchor");
+                               // console.log("anchor");
 								const anchorAd2 = document.querySelector(
                         'ins[data-ad-status="filled"][data-anchor-shown="true"] iframe'
                     );handleAdClick(anchorAd2,anchor);
@@ -102,7 +102,7 @@ console.log("isckMobile");
                     }, 10); // Check every 100ms
 
                     var dasf = () => {
-						console.log("dasf show ad run");
+						// console.log("dasf show ad run");
                       //  clearInterval(anchorintervalId);
                         // clearInterval(vignetteintervalId);
                         bpkc.set("sgt", 1, {
@@ -115,17 +115,17 @@ console.log("isckMobile");
 					
 					const handleAdClick = (adElement,anchor) => {
 						
-						console.log("handleAdClick");
+						// console.log("handleAdClick");
                         if (adElement) {
 							anchor.addEventListener("click", dasf);
 							
 							 window.addEventListener("blur", () => {
                             if (document.activeElement === adElement) {
-					console.log( "Iframe Ad Clicked" );
+					// console.log( "Iframe Ad Clicked" );
                                 dasf();
-								console.log("clicked");
+								// console.log("clicked");
                             }else{
-								console.log('pk Active element changed:', document.activeElement);
+								// console.log('pk Active element changed:', document.activeElement);
 
 							}
 						
@@ -133,7 +133,7 @@ console.log("isckMobile");
                         }else{
 							setTimeout(() => {
 							handleAdClick(adElement);
-							console.log("Iframe not found" + adElement);
+							// console.log("Iframe not found" + adElement);
                         }, 2000);
 						}
                     };
@@ -141,7 +141,8 @@ console.log("isckMobile");
             }
 
 
-    } else {console.log("not run");
+    } else {
+		// console.log("not run");
         bpkc.set("sgt", 1, {
             secure: 1,
             "max-age": 3600
@@ -165,7 +166,7 @@ checkpkscs();
 }
     }
 }).catch(function (error) {
-    console.error(error);
+    // console.error(error);
 });
 
 
