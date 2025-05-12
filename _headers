@@ -5,7 +5,7 @@
   Cache-Control: public, s-maxage=31536000, max-age=31536000
 
 /scripts/*
-  Cache-Control: public, s-maxage=86400, max-age=86400
+  Cache-Control: public, s-maxage=31536000, max-age=31536000
 
 /autopush_http_prompt.js*
   Cache-Control: public, s-maxage=3600, max-age=3600
