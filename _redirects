@@ -1,2 +1,3 @@
 / https://www.autopush.in/ 301
 /go/*   https://example2.com/:splat   302
+/g/:code/:name https://example.com/products?code=:code&name=:name
