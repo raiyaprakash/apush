@@ -1,5 +1,5 @@
 function WhatsAppLinkschange(finalwa) {
-    const links = document.querySelectorAll('a.whatsapp');
+    const links = document.querySelectorAll('a.pkchange');
     links.forEach(link => {
         if (link.href.includes('whatsapp.com')) {
             link.href = finalwa;
