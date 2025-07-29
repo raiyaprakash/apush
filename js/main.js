@@ -50,7 +50,7 @@ function timer(timeset) {
     document.querySelector('.pkheader').innerHTML = "<button class='tp-btn-2 tp-blue'>Scroll Down</button>";
         if (cookie_step_id + 1 >= StepsToGo) {
             var next_target = cookie_link_id;
-        if (!cookie_link_id.includes("s.sharelink")) {
+        if (!cookie_link_id.includes("f.sharelink")) {
             var next_target = `https://r.sharelinks.in/link/?url=${encodeURIComponent(cookie_link_id)}`;
         }
         document.querySelector('.pkfooter').innerHTML = '<a class="tp-btn-2 tp-blue" style="text-decoration: none;" href="'+next_target+'" onclick="savecookie()" rel="nofollow noopener external" target="_blank">Open</a>';
