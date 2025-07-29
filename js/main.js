@@ -53,7 +53,7 @@ function timer(timeset) {
         if (!cookie_link_id.includes("f.sharelink")) {
             var next_target = `https://r.sharelinks.in/link/?url=${encodeURIComponent(cookie_link_id)}`;
         }
-        document.querySelector('.pkfooter').innerHTML = '<a class="tp-btn-2 tp-blue" style="text-decoration: none;" href="'+next_target+'" onclick="savecookie()" rel="nofollow noopener external" target="_blank">Open</a>';
+        document.querySelector('.pkfooter').innerHTML = '<a class="tp-btn-2 tp-blue" style="text-decoration: none;" href="'+next_target+'" onclick="savecookie()" rel="nofollow noopener external" target="_blank">Go to Link</a>';
     } else {
         document.querySelector('.pkfooter').innerHTML = '<a class="tp-btn-2 tp-blue" style="text-decoration: none;" href="'+getRandomUrl()+'" onclick="savecookie()">Open</a>';
     }
@@ -82,10 +82,11 @@ if (null != bpkc.get("user_id")) {
         document.querySelector('.pkhinsert').innerHTML = `<div style="font-size: 12px;margin: 0;line-height: normal;"><strong>You are <span style="color:red;">${currentStep}</span>.</strong></div>`;
         pkheader.innerHTML += '<button id="nextbtn" class="tp-btn-2 tp-blue" onclick="runtimer()">Open</button>';
     }
-
-document.querySelector('.footerinsert').innerHTML = '<ins class="adsbygoogle" data-ad-client="ca-pub-7512648770861868" data-ad-format="auto" data-ad-slot="2202878236" data-full-width-responsive="true" style="display:block"></ins>';
-(adsbygoogle = window.adsbygoogle || []).push({});
-
+    const footerinsert = document.querySelector('.footerinsert');
+    if (footerinsert) {
+        footerinsert.innerHTML = '<ins class="adsbygoogle" data-ad-client="ca-pub-7512648770861868" data-ad-format="auto" data-ad-slot="2202878236" data-full-width-responsive="true" style="display:block"></ins>';
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    }
 
     function runtimer() {
     document.querySelector('.pkheader').innerHTML = '<button class="tp-btn-2 tp-blue">Wait... <span id="tp-time">10</span></button>';
