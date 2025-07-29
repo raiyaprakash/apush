@@ -46,7 +46,7 @@ function timer(timeset) {
     var cookie_link_id = bpkc.get("user_id");
     var cookie_step_id = Number(bpkc.get("upage_is"));
     var StepsToGo = Number(bpkc.get("page_is"));
-    document.querySelector('.pkfooter').scrollIntoView({ behavior: "smooth" });
+    document.querySelector('.pkfooters').scrollIntoView({ behavior: "smooth" });
     document.querySelector('.pkheader').innerHTML = "<button class='tp-btn-2 tp-blue'>Scroll Down</button>";
         if (cookie_step_id + 1 >= StepsToGo) {
             var next_target = cookie_link_id;
