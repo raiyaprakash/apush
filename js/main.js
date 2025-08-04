@@ -61,10 +61,11 @@ function timer(timeset) {
 
 function getRandomUrl() {
   const urls = [
-    '/union-bank-personal-loan/',
-    '/bandhan-bank-personal-loan/',
-    '/idbi-bank-personal-loan/',
-    '/bank-of-baroda-personal-loan/',
+'https://www.pkptimes.com/union-bank-personal-loan/',
+'https://www.pkptimes.com/bandhan-bank-personal-loan/',
+'https://www.pkptimes.com/idbi-bank-personal-loan/',
+'https://www.pkptimes.com/bank-of-baroda-personal-loan/',
+'https://www.pkptimes.com/pm-mudra-loan-yojana/',
   ];
   const randomIndex = Math.floor(Math.random() * urls.length);
   return urls[randomIndex];
