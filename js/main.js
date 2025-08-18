@@ -97,8 +97,8 @@ if (null != bpkc.get("user_id")) {
     function savecookie() {
         var cookie_step_id = Number(bpkc.get("upage_is"));
         var next_status = cookie_step_id + 1;
-        bpkc.set("upage_is",next_status,{secure:1,"max-age":300});
-        const cookieOptions={secure:1,"max-age":0};
+        bpkc.set("upage_is",next_status,{secure:1,"max-age":300,domain:".pkptimes.com"});
+        const cookieOptions={secure:1,"max-age":0,domain:".pkptimes.com"};
         if (cookie_step_id + 1 >= StepsToGo) {
             bpkc.set("upage_is", 1, cookieOptions);
             bpkc.set("page_is", 1, cookieOptions);
