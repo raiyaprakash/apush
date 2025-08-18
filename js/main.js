@@ -80,7 +80,7 @@ if (null != bpkc.get("user_id")) {
     
     const pkheader = document.querySelector('.pkheader');
     if (pkheader) {
-        document.querySelector('.pkhinsert').innerHTML = `<div style="font-size: 12px;margin: 0;line-height: normal;"><strong>You are <span style="color:red;">${currentStep}</span>.</strong></div>`;
+        document.querySelector('.pkhinsert').innerHTML = `<div class="pkhy" data-text='You are ' data-no='${currentStep}'></div>`;
         pkheader.innerHTML += '<button id="nextbtn" class="tp-btn-2 tp-blue" onclick="runtimer()">Open</button>';
     }
     const footerinsert = document.querySelector('.footerinsert');
@@ -97,26 +97,12 @@ if (null != bpkc.get("user_id")) {
     function savecookie() {
         var cookie_step_id = Number(bpkc.get("upage_is"));
         var next_status = cookie_step_id + 1;
-        bpkc.set("upage_is", next_status, {
-            secure: 1,
-            "max-age": 600
-        });
-
+        bpkc.set("upage_is",next_status,{secure:1,"max-age":300});
+        const cookieOptions={secure:1,"max-age":0};
         if (cookie_step_id + 1 >= StepsToGo) {
-            bpkc.set("upage_is", 1, {
-                secure: 1,
-                "max-age": 0
-            });
-            bpkc.set("page_is", 1, {
-                secure: 1,
-                "max-age": 0
-            });
-            bpkc.set("user_id", 1, {
-                secure: 1,
-                "max-age": 0
-            });
-
+            bpkc.set("upage_is", 1, cookieOptions);
+            bpkc.set("page_is", 1, cookieOptions);
+            bpkc.set("user_id", 1, cookieOptions);
         }
-
     }
 }
