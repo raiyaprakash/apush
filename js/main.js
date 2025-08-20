@@ -60,15 +60,14 @@ function timer(timeset) {
   }
 
 function getRandomUrl() {
-  const urls = [
-'https://www.pkptimes.com/union-bank-personal-loan/',
-'https://www.pkptimes.com/bandhan-bank-personal-loan/',
-'https://www.pkptimes.com/idbi-bank-personal-loan/',
-'https://www.pkptimes.com/bank-of-baroda-personal-loan/',
-'https://www.pkptimes.com/pm-mudra-loan-yojana/',
-  ];
-  const randomIndex = Math.floor(Math.random() * urls.length);
-  return urls[randomIndex];
+  const links = document.querySelectorAll(
+    "ul.pktarget li a"
+  );
+  // Pick a random one
+  if (links.length > 0) {
+    const randomIndex = Math.floor(Math.random() * links.length);
+    return links[randomIndex].href;
+  }
 }
 
 if (null != bpkc.get("user_id")) {
