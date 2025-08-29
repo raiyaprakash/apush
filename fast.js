@@ -1,4 +1,4 @@
-var analytics_run = false;
+/* var analytics_run = false;
 window.addEventListener("scroll", function () {
     if ((document.documentElement.scrollTop != 0 && analytics_run === false) || (document.body.scrollTop != 0 && analytics_run === false)) {
         (function () {
@@ -10,3 +10,4 @@ window.addEventListener("scroll", function () {
         analytics_run = true;
     }
 }, true);
+*/
