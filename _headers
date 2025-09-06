@@ -25,6 +25,9 @@
 /push-sw.js*
   Cache-Control: public, s-maxage=31536000, max-age=86400
 
+/webpush/sw.js*
+  Cache-Control: public, s-maxage=31536000, max-age=604800
+
 /autopush_prompt.js?ver=1.*
   Cache-Control: public, s-maxage=31536000, max-age=31536000
 
