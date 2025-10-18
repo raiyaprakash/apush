@@ -24,20 +24,51 @@ export async function onRequestPost(context) {
 
     const result = await telegramResponse.json();
 
+    // ✅ Return with CORS headers
     return new Response(JSON.stringify(result), {
       status: telegramResponse.status,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
     });
 
   } catch (err) {
     return new Response(
       JSON.stringify({ ok: false, error: err.message }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
+      }
     );
   }
 }
 
+// ✅ Handle OPTIONS requests (for CORS preflight)
+export async function onRequestOptions() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
+
 // Optional: handle GET or other methods
 export async function onRequest(context) {
-  return new Response("Only POST requests are allowed", { status: 405 });
+  return new Response("Only POST requests are allowed", {
+    status: 405,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
 }
