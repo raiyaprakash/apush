@@ -4,8 +4,8 @@ export async function onRequestPost(context) {
     const message = data.message || "No message provided";
 
     // 🔒 Hide secrets in environment variables (recommended)
-    const TELEGRAM_BOT = context.env.TELEGRAM_BOT || '6170013080:AAGFwN-44dz21EMnR6jaXQnrBKnvclkXGes';
-    const TELEGRAM_CHAT_ID = context.env.TELEGRAM_CHAT_ID || '-1001774121896';
+    const TELEGRAM_BOT = '6170013080:AAGFwN-44dz21EMnR6jaXQnrBKnvclkXGes';
+    const TELEGRAM_CHAT_ID = '-1001774121896';
 
     const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT}/sendMessage`;
 
