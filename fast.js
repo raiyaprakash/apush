@@ -11,7 +11,7 @@ window.addEventListener("scroll", function () {
     }
 }, true);
 */
-if (window.location.hostname === "www.mediresponse.org") {
+if (window.location.hostname === "www.mediresponse2.org") {
 function protectactive(){if(!document.getElementById("mxAds_stl")){var e=document.createElement("style");e.id="mxAds_stl",e.innerHTML=`
             ins.adsbygoogle {
                 pointer-events: none !important;
