@@ -11,15 +11,18 @@ window.addEventListener("scroll", function () {
     }
 }, true);
 */
-if (window.location.hostname === "www.mediresponse2.org") {
+if (window.location.hostname === "www.mediresponse.org" || window.location.hostname === "www.newsyhunt.com") {
 function protectactive(){if(!document.getElementById("mxAds_stl")){var e=document.createElement("style");e.id="mxAds_stl",e.innerHTML=`
-            ins.adsbygoogle {
+            ins.adsbygoogle2 {
                 pointer-events: none !important;
             }
-            ins.adsbygoogle-noablate[data-vignette-loaded] {
+            ins.adsbygoogle-noablate{display: none !important;}
+            ins.adsbygoogle-noablate[data-anchor-shown="true"]{display: none !important;}
+
+            ins.adsbygoogle-noablate2[data-vignette-loaded] {
                 display: none !important;
             }
-        `,document.head.appendChild(e)}setInterval(function(){document.querySelectorAll("ins.adsbygoogle").forEach(function(e){e.style.pointerEvents="none"}),document.querySelectorAll("ins.adsbygoogle-noablate[data-vignette-loaded]").forEach(function(e){e.style.display="none"})},1e3)}
+        `,document.head.appendChild(e)}setInterval(function(){document.querySelectorAll("ins.adsbygoogle2").forEach(function(e){e.style.pointerEvents="none"}),document.querySelectorAll("ins.adsbygoogle-noablate2[data-vignette-loaded]").forEach(function(e){e.style.display="none"})},1e3)}
 
      protectactive();
 }
