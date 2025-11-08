@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Auto‑Narrated Quiz Video Maker — Hindi Voice (Worker)</title>
+<style>
+  :root{
+    --bg:#0f1216; --card:#141924; --muted:#7c8596; --text:#e9edf3; --accent:#6ee7ff; --accent2:#8b5cf6;
+    --good:#22c55e; --bad:#ef4444; --warn:#f59e0b; --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 20% -10%,#1f2937 0%,#0f1216 45%),#0f1216;color:var(--text);
+       font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,"Noto Sans",sans-serif;}
+  .app{min-height:100svh;display:grid;grid-template-rows:auto 1fr auto}
+  header{position:sticky;top:0;backdrop-filter:saturate(1.4) blur(8px);background:linear-gradient(180deg,rgba(15,18,22,.9),rgba(15,18,22,.5));z-index:5;border-bottom:1px solid #202635}
+  .bar{max-width:1200px;margin:auto;padding:12px 16px;display:flex;gap:8px;align-items:center}
+  h1{font-size:18px;font-weight:700;letter-spacing:.2px;margin:0;display:flex;align-items:center;gap:10px}
+  .chip{padding:4px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#061018;font-weight:700}
+  .grow{flex:1}
+  select, button, input[type="number"], textarea{background:#0b0f17;color:var(--text);border:1px solid #2a3346;border-radius:10px;padding:10px 12px;font:inherit}
+  button{cursor:pointer}
+  button.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#061018;border:none;font-weight:800}
+  button.ghost{background:transparent;border:1px solid #2a3346}
+  .container{max-width:1200px;margin:auto;padding:22px;display:grid;grid-template-columns:360px 1fr;gap:22px}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.00));border:1px solid #202635;border-radius:18px;box-shadow:var(--shadow)}
+  .card .head{padding:16px 16px 10px;border-bottom:1px solid #202635;display:flex;align-items:center;gap:10px}
+  .card .body{padding:16px}
+  .muted{color:var(--muted)}
+  .editor{height:420px}
+  .editor textarea{width:100%;height:100%;resize:vertical;min-height:260px;border-radius:14px}
+  .side-grid{display:grid;gap:14px}
+
+  /* Quiz stage */
+  .stage{display:grid;grid-template-rows:auto auto 1fr auto;gap:14px;padding:18px}
+  .qhead{display:flex;align-items:center;gap:12px}
+  .badge{background:#0b0f17;border:1px solid #2a3346;color:#9fb0c8;padding:6px 10px;border-radius:999px;font-weight:700}
+  .question{font-size:26px;line-height:1.35;font-weight:800}
+  .options{display:grid;grid-template-columns:1fr 1fr; gap:12px; margin-top:10px}
+  .opt{position:relative;border:1px solid #263149;background:#0b0f17;border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;transition:.25s}
+  .opt .alpha{flex:0 0 34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#111827;border:1px dashed #334155;color:#86a1c2;font-weight:800}
+  .opt .txt{font-size:18px;line-height:1.5}
+  .opt:hover{transform:translateY(-2px)}
+  .opt.correct{border-color:transparent;background:linear-gradient(180deg,rgba(34,197,94,.16),rgba(34,197,94,.06));outline:2px solid rgba(34,197,94,.6)}
+  .opt.wrong{border-color:transparent;background:linear-gradient(180deg,rgba(239,68,68,.12),rgba(239,68,68,.04));outline:2px solid rgba(239,68,68,.55)}
+
+  .footer{display:flex;align-items:center;gap:10px;justify-content:space-between;border-top:1px solid #202635;padding-top:12px}
+  .timer{display:flex;align-items:center;gap:12px}
+  .count{font-size:28px;font-weight:900;min-width:2ch;text-align:center}
+  .ring{width:44px;height:44px;border-radius:50%;background:conic-gradient(var(--warn) 0deg, #273043 0deg);display:grid;place-items:center}
+  .ring>span{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#0b0f17;border:1px solid #2a3346;font-weight:800}
+  .progress{height:8px;border-radius:999px;background:#202635;overflow:hidden}
+  .progress>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0}
+
+  .warn{border:1px solid #f59e0b33;background:#f59e0b14;color:#ffd79a;padding:10px;border-radius:10px;margin:10px 0}
+
+  @media (max-width:980px){
+    .container{grid-template-columns:1fr}
+    .editor{height:auto}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="bar">
+      <h1>🎬 Quiz Video Maker <span class="chip">Hindi Online Voice</span></h1>
+      <div class="grow"></div>
+      <button id="btnStart" class="primary">▶️ Auto Play</button>
+      <button id="btnPrev" class="ghost">⟵ Prev</button>
+      <button id="btnNext" class="ghost">Next ⟶</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Left: Data / Controls -->
+    <section class="side-grid">
+      <div class="card">
+        <div class="head"><strong>🗂️ Quiz Data (JSON)</strong></div>
+        <div class="body editor">
+<textarea id="data" spellcheck="false">{
+  "title": "UPTET Paper 2 Mock Test – Sample",
+  "timerSeconds": 3,
+  "questions": [
+    {
+      "q": "शिक्षण में ब्लूम का टैक्सोनॉमी किससे सम्बंधित है?",
+      "options": ["सीखने के स्तर", "स्कूल प्रबंधन", "समाजशास्त्र", "भौतिकी"],
+      "answer": 0,
+      "explain": "ब्लूम का टैक्सोनॉमी सीखने के उद्देश्यों के स्तर (ज्ञान, बौद्धिक कौशल) को बताता है।"
+    },
+    {
+      "q": "Which of the following is a renewable source of energy?",
+      "options": ["Coal", "Natural Gas", "Solar", "Diesel"],
+      "answer": 2,
+      "explain": "Solar energy is renewable and sustainable."
+    },
+    {
+      "q": "'मया रामः दृश्यते' वाक्य का वाच्य-परिवर्तन क्या होगा?",
+      "options": ["अहं रामः पश्यामि", "अहं रामं पश्यामि", "अहं रामं दर्शयामि", "मया रामं पश्यामि"],
+      "answer": 1,
+      "explain": "कर्तृवाच्य में — 'अहं रामं पश्यामि'।"
+    }
+  ]
+}</textarea>
+          <div class="row" style="display:flex;gap:10px;margin-top:10px">
+            <button id="btnApply" class="primary">✅ Use this data</button>
+            <button id="btnDownload" class="ghost">⬇️ Export JSON</button>
+          </div>
+          <div class="warn">🔊 Voice इस URL से आएगी: <code>https://voice.prakashraiya25-f34.workers.dev/</code> — कोई ad‑block हो तो allow कर दें।</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right: Stage -->
+    <section class="card">
+      <div class="stage">
+        <div class="qhead">
+          <span class="badge" id="quizTitle">Quiz</span>
+          <div class="progress" style="flex:1"><i id="bar"></i></div>
+          <span class="badge" id="countBadge">1/1</span>
+        </div>
+        <div class="question" id="qText">अपना प्रश्न जोड़ें…</div>
+        <div class="options" id="opts"></div>
+        <div class="footer">
+          <div class="timer">
+            <div class="ring"><span id="ringNum">3</span></div>
+            <div class="count" id="countNum">3</div>
+            <span class="muted">सेकंड में उत्तर दिखेगा</span>
+          </div>
+          <div class="row" style="display:flex;gap:8px">
+            <button id="btnReveal" class="ghost">💡 Reveal Now</button>
+            <button id="btnReplay" class="ghost">🔁 Replay</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bar" style="border-top:1px solid #202635">
+    <span class="muted">How to: Add Q/A → Use this data → Auto Play → Screen‑record → Upload.</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  // --- State ---
+  let DATA = { title:"Quiz", timerSeconds:3, questions:[] };
+  let idx = 0, timerId = null, revealed = false;
+
+  // DOM helpers
+  const el = (id)=>document.getElementById(id);
+  const qText=el('qText'), opts=el('opts'), bar=el('bar'), countBadge=el('countBadge');
+  const ringNum=el('ringNum'), countNum=el('countNum'), quizTitle=el('quizTitle');
+
+  // Cloudflare Worker (fixed for your domain)
+  const WORKER_URL = "https://voice.prakashraiya25-f34.workers.dev/";
+
+  function chunkText(text, size=180){
+    const parts = []; let cur='';
+    text.split(/\s+/).forEach(w=>{ if ((cur+' '+w).length>size){ parts.push(cur); cur=w; } else cur = cur?cur+' '+w:w; });
+    if (cur) parts.push(cur); return parts;
+  }
+
+  function ttsUrl(text){
+    // Always Hindi voice (tl=hi)
+    const u = new URL(WORKER_URL);
+    u.pathname = '/tts';
+    u.searchParams.set('q', text);
+    u.searchParams.set('tl', 'hi');
+    return u.toString();
+  }
+
+  async function playTTS(text){
+    const chunks = chunkText(text);
+    for (const c of chunks){
+      await new Promise((resolve)=>{
+        const a = new Audio();
+        a.crossOrigin = 'anonymous';
+        a.src = ttsUrl(c);
+        a.onended = resolve; a.onerror = ()=>resolve();
+        a.play().catch(()=>resolve());
+      });
+    }
+  }
+
+  async function speak(text){
+    try{ await playTTS(text); }
+    catch(e){
+      // Last-resort fallback
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'hi-IN'; u.pitch=0.85; u.rate=1.0;
+      return new Promise(r=>{ speechSynthesis.cancel(); speechSynthesis.speak(u); u.onend=r; });
+    }
+  }
+
+  // --- Render ---
+  function render(){
+    const q = DATA.questions[idx]; if (!q) return;
+    quizTitle.textContent = DATA.title || 'Quiz';
+    qText.textContent = q.q; opts.innerHTML='';
+    const letters=['A','B','C','D','E','F'];
+    q.options.forEach((t,i)=>{
+      const div=document.createElement('div'); div.className='opt';
+      div.innerHTML=`<div class="alpha">${letters[i]||i+1}</div><div class="txt">${t}</div>`;
+      opts.appendChild(div);
+    });
+    countBadge.textContent = `${idx+1}/${DATA.questions.length}`;
+    bar.style.width = `${(idx/Math.max(1,DATA.questions.length))*100}%`;
+    resetCountdown(); revealed=false;
+  }
+
+  function resetCountdown(){ updateCountdown(DATA.timerSeconds||3); }
+  function updateCountdown(n){
+    ringNum.textContent = n; countNum.textContent = n;
+    const total = DATA.timerSeconds||3;
+    const deg = Math.round(360*(n/total));
+    document.querySelector('.ring').style.background = `conic-gradient(var(--warn) ${deg}deg, #273043 0deg)`;
+  }
+
+  // Flow: Narration → Countdown → Reveal → Speak Answer → Next
+  async function runQuestion(){
+    const q = DATA.questions[idx]; if (!q) return; render();
+    const letters=['A','B','C','D','E','F'];
+    const narration = `${q.q}. विकल्प: ` + q.options.map((t,i)=>`${letters[i]}: ${t}`).join(', ');
+    await speak(narration);
+    let remain = DATA.timerSeconds||3; updateCountdown(remain);
+    clearInterval(timerId);
+    timerId = setInterval(()=>{
+      remain--; if (remain<=0){ clearInterval(timerId); reveal(true); }
+      updateCountdown(Math.max(0,remain));
+    },1000);
+  }
+
+  async function reveal(narrateAns){
+    if (revealed) return; revealed=true;
+    const q = DATA.questions[idx]; if (!q) return;
+    const nodes = Array.from(opts.children);
+    nodes.forEach((n,i)=> n.classList.add(i===q.answer? 'correct':'wrong'));
+    bar.style.width = `${((idx+1)/Math.max(1,DATA.questions.length))*100}%`;
+    if (narrateAns){
+      const letters=['A','B','C','D','E','F'];
+      const msg = `सही उत्तर: विकल्प ${letters[q.answer]} — ${q.options[q.answer]}`;
+      await speak(msg);
+    }
+    setTimeout(()=>{ next(); }, 1000);
+  }
+
+  function next(){ if (idx < DATA.questions.length-1){ idx++; runQuestion(); } else { qText.textContent = '✅ Quiz Complete'; opts.innerHTML=''; } }
+  function prev(){ if (idx>0){ idx--; runQuestion(); } }
+  function replay(){ runQuestion(); }
+
+  // --- Controls ---
+  document.getElementById('btnApply').onclick = ()=>{
+    try{ DATA = JSON.parse(document.getElementById('data').value); idx=0; render(); }
+    catch(e){ alert('Invalid JSON: '+e.message); }
+  };
+  document.getElementById('btnDownload').onclick = ()=>{
+    const blob = new Blob([document.getElementById('data').value], {type:'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'quiz.json'; a.click();
+  };
+  document.getElementById('btnStart').onclick = ()=>{ runQuestion(); };
+  document.getElementById('btnPrev').onclick = prev;
+  document.getElementById('btnNext').onclick = next;
+  document.getElementById('btnReveal').onclick = ()=>reveal(true);
+  document.getElementById('btnReplay').onclick = replay;
+
+  window.addEventListener('keydown', (e)=>{ if (e.key==='ArrowRight') next(); if (e.key==='ArrowLeft') prev(); if (e.key.toLowerCase()==='r') replay(); });
+
+  document.getElementById('btnApply').click();
+})();
+</script>
+</body>
+</html>
