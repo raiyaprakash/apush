@@ -16,7 +16,7 @@ const options = {
         apiKey: "AIzaSyCvbnP9pqFtrKqCQfdGw0pcamLaZEqFSv0",
     },
     domain: "autopush.in",
-    api_url: "https://ravi.autopush.in/token/save.php",
+    api_url: "https://ravi.autopush.in/webpush/token/save.php",
     vapid_public_key: "BKtVf7d6YseY3YR8rQ5qqBGH3y_8KukFbhBHl4zkBr8tIvcs0kEpYb8P2kM0zruogFOZxHnAp6CVgJw7ppfIjQo",
 }
 
