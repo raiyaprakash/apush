@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>PDF Admin Panel</title>
+<style>
+body{font-family:system-ui;background:#f4f6fb;padding:20px}
+.box{max-width:900px;margin:auto;background:#fff;padding:20px;border-radius:10px}
+input,textarea,button{width:100%;padding:10px;margin-top:8px}
+textarea{min-height:120px;font-family:monospace}
+button{background:#2563eb;color:#fff;border:none;border-radius:6px;cursor:pointer}
+button.secondary{background:#6b7280}
+.msg{margin-top:10px;font-weight:600}
+</style>
+</head>
+
+<body>
+<div class="box">
+<h2>📘 PDF Store Admin</h2>
+
+<input id="token" placeholder="ADMIN TOKEN">
+
+<div style="display:flex;gap:10px">
+  <input id="id" placeholder="PDF ID (pdf1)">
+  <button class="secondary" onclick="loadPDF()">🔍 Load</button>
+</div>
+
+<input id="name" placeholder="PDF Name">
+<input id="price" placeholder="Price (paise)">
+<textarea id="downloads" placeholder="Downloads JSON"></textarea>
+
+<button onclick="savePDF()">💾 Save PDF</button>
+
+<div id="msg" class="msg"></div>
+</div>
+
+<script>
+const API = "https://api.raushan-d9d.workers.dev/";
+let isNew = true;
+
+async function loadPDF(){
+  const token = tokenVal();
+  const id = val("id");
+
+  const res = await fetch(`${API}/admin-get?token=${token}&pdf=${id}`);
+  const data = await res.json();
+
+  if(data.status === "not_found"){
+    msg("New PDF ID, you can add", "green");
+    isNew = true;
+    return;
+  }
+
+  if(data.status === "success"){
+    isNew = false;
+    set("name", data.data.name);
+    set("price", data.data.price);
+    set("downloads", JSON.stringify(data.data.downloads, null, 2));
+    msg("PDF loaded", "green");
+  }
+}
+
+async function savePDF(){
+  try{
+    const body = {
+      id: val("id"),
+      name: val("name"),
+      price: Number(val("price")),
+      downloads: JSON.parse(val("downloads")),
+      isNew
+    };
+
+    const res = await fetch(`${API}/admin-save?token=${tokenVal()}`,{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(body)
+    });
+
+    const out = await res.json();
+
+    if(out.status === "error"){
+      msg(out.message, "red");
+    }else{
+      msg(out.message, "green");
+      isNew = false;
+    }
+
+  }catch(e){
+    msg("Invalid JSON", "red");
+  }
+}
+
+function val(id){ return document.getElementById(id).value.trim(); }
+function set(id,v){ document.getElementById(id).value = v; }
+function tokenVal(){ return val("token"); }
+function msg(t,c){ document.getElementById("msg").innerText=t; document.getElementById("msg").style.color=c; }
+</script>
+</body>
+</html>
