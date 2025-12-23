@@ -1,33 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PDF Admin Panel</title>
+<title>PDF Store Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
-body{font-family:system-ui;background:#f4f6fb;padding:20px}
-.box{max-width:900px;margin:auto;background:#fff;padding:20px;border-radius:10px}
-input,textarea,button{width:100%;padding:10px;margin-top:8px}
-textarea{min-height:120px;font-family:monospace}
-button{background:#2563eb;color:#fff;border:none;border-radius:6px;cursor:pointer}
-button.secondary{background:#6b7280}
-.msg{margin-top:10px;font-weight:600}
+  body{
+    font-family: system-ui, Arial;
+    background:#f5f7fb;
+    padding:20px;
+  }
+  .box{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+  }
+  h2{margin-top:0}
+  label{display:block;margin-top:12px;font-weight:600}
+  input, textarea, button{
+    width:100%;
+    padding:10px;
+    margin-top:6px;
+    font-size:14px;
+  }
+  textarea{min-height:120px;font-family:monospace}
+  button{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    border-radius:6px;
+    margin-top:15px;
+  }
+  button:hover{opacity:.9}
+  .row{display:flex;gap:10px}
+  .row > div{flex:1}
+  .note{
+    background:#f1f5f9;
+    padding:10px;
+    border-radius:6px;
+    font-size:13px;
+    margin-top:10px;
+  }
 </style>
 </head>
 
 <body>
+
 <div class="box">
-<h2>📘 PDF Store Admin</h2>
+  <h2>📘 PDF Store Admin Panel</h2>
 
-<input id="token" placeholder="ADMIN TOKEN">
+  <label>Admin Token</label>
+  <input id="adminToken" placeholder="ADMIN_TOKEN">
 
-<div style="display:flex;gap:10px">
-  <input id="id" placeholder="PDF ID (pdf1)">
-  <button class="secondary" onclick="loadPDF()">🔍 Load</button>
-</div>
+  <label>PDF ID</label>
+  <input id="pdfId" placeholder="pdf1">
 
-<input id="name" placeholder="PDF Name">
-<input id="price" placeholder="Price (paise)">
-<textarea id="downloads" placeholder="Downloads JSON">
+  <label>PDF Title</label>
+  <input id="pdfName" placeholder="SSC Maths Notes">
+
+  <label>Price (in paise)</label>
+  <input id="pdfPrice" placeholder="9900">
+
+  <label>Download Files (JSON)</label>
+  <textarea id="pdfDownloads">
 [
   {
     "name": "SSC Maths Part-1",
@@ -38,73 +78,53 @@ button.secondary{background:#6b7280}
     "url": "https://pdf.autopush.in/ssc-maths-2.pdf"
   }
 ]
-</textarea>
+  </textarea>
 
-<button onclick="savePDF()">💾 Save PDF</button>
+  <button onclick="savePDF()">💾 Save / Update PDF</button>
 
-<div id="msg" class="msg"></div>
+  <div class="note">
+    ✔ Same form works for <b>Add</b> and <b>Update</b><br>
+    ✔ Existing ID → Update<br>
+    ✔ New ID → Insert
+  </div>
 </div>
 
 <script>
-const API = "https://api.raushan-d9d.workers.dev/";
-let isNew = true;
+async function savePDF(){
+  const token = document.getElementById("adminToken").value.trim();
+  const id = document.getElementById("pdfId").value.trim();
+  const name = document.getElementById("pdfName").value.trim();
+  const price = document.getElementById("pdfPrice").value.trim();
+  const downloadsRaw = document.getElementById("pdfDownloads").value.trim();
 
-async function loadPDF(){
-  const token = tokenVal();
-  const id = val("id");
-
-  const res = await fetch(`${API}/admin-get?token=${token}&pdf=${id}`);
-  const data = await res.json();
-
-  if(data.status === "not_found"){
-    msg("New PDF ID, you can add", "green");
-    isNew = true;
+  if(!token || !id || !name || !price || !downloadsRaw){
+    alert("All fields required");
     return;
   }
 
-  if(data.status === "success"){
-    isNew = false;
-    set("name", data.data.name);
-    set("price", data.data.price);
-    set("downloads", JSON.stringify(data.data.downloads, null, 2));
-    msg("PDF loaded", "green");
-  }
-}
-
-async function savePDF(){
+  let downloads;
   try{
-    const body = {
-      id: val("id"),
-      name: val("name"),
-      price: Number(val("price")),
-      downloads: JSON.parse(val("downloads")),
-      isNew
-    };
-
-    const res = await fetch(`${API}/admin-save?token=${tokenVal()}`,{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify(body)
-    });
-
-    const out = await res.json();
-
-    if(out.status === "error"){
-      msg(out.message, "red");
-    }else{
-      msg(out.message, "green");
-      isNew = false;
-    }
-
+    downloads = JSON.parse(downloadsRaw);
   }catch(e){
-    msg("Invalid JSON", "red");
+    alert("Invalid JSON in downloads");
+    return;
   }
-}
 
-function val(id){ return document.getElementById(id).value.trim(); }
-function set(id,v){ document.getElementById(id).value = v; }
-function tokenVal(){ return val("token"); }
-function msg(t,c){ document.getElementById("msg").innerText=t; document.getElementById("msg").style.color=c; }
+  const res = await fetch("https://api.raushan-d9d.workers.dev/admin-save?token="+encodeURIComponent(token),{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      id,
+      name,
+      price: Number(price),
+      downloads
+    })
+  });
+
+  const out = await res.json();
+  alert(JSON.stringify(out));
+}
 </script>
+
 </body>
 </html>
