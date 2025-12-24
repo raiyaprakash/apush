@@ -2,128 +2,260 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PDF Store Admin</title>
+<title>PDF Admin Panel</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-  body{
-    font-family: system-ui, Arial;
-    background:#f5f7fb;
-    padding:20px;
-  }
-  .box{
-    max-width:900px;
-    margin:auto;
-    background:#fff;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-  }
-  h2{margin-top:0}
-  label{display:block;margin-top:12px;font-weight:600}
-  input, textarea, button{
-    width:100%;
-    padding:10px;
-    margin-top:6px;
-    font-size:14px;
-  }
-  textarea{min-height:120px;font-family:monospace}
-  button{
-    background:#2563eb;
-    color:#fff;
-    border:none;
-    cursor:pointer;
-    border-radius:6px;
-    margin-top:15px;
-  }
-  button:hover{opacity:.9}
-  .row{display:flex;gap:10px}
-  .row > div{flex:1}
-  .note{
-    background:#f1f5f9;
-    padding:10px;
-    border-radius:6px;
-    font-size:13px;
-    margin-top:10px;
-  }
+:root{
+  --bg:#0b1220;
+  --card:#111827;
+  --muted:#9ca3af;
+  --border:#1f2937;
+  --accent:#6366f1;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --info:#38bdf8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+  background:radial-gradient(80% 60% at 50% 0%,#111827,#020617);
+  color:#e5e7eb;
+}
+.wrap{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.card{
+  width:100%;
+  max-width:900px;
+  background:rgba(17,24,39,.85);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px;
+  backdrop-filter:blur(14px);
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
+h2{
+  margin:0 0 18px;
+  font-size:22px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 160px;
+  gap:12px;
+}
+label{
+  display:block;
+  margin:14px 0 6px;
+  font-size:13px;
+  color:var(--muted);
+}
+input,textarea{
+  width:100%;
+  padding:12px 14px;
+  background:#020617;
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:#e5e7eb;
+  font-size:14px;
+}
+textarea{
+  min-height:130px;
+  resize:vertical;
+  font-family:monospace;
+}
+button{
+  padding:12px 14px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#6366f1,#4f46e5);
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+  transition:.2s;
+}
+button.secondary{
+  background:#1f2937;
+}
+button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+button:hover:not(:disabled){
+  transform:translateY(-1px);
+}
+.status{
+  margin-top:14px;
+  font-weight:600;
+  font-size:14px;
+}
+.status.success{color:var(--success)}
+.status.error{color:var(--danger)}
+.status.info{color:var(--info)}
+.footer{
+  margin-top:14px;
+  font-size:12px;
+  color:var(--muted);
+}
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 
 <body>
+<div class="wrap">
+<div class="card">
 
-<div class="box">
-  <h2>📘 PDF Store Admin Panel</h2>
+<h2>📘 PDF Store Admin</h2>
 
-  <label>Admin Token</label>
-  <input id="adminToken" placeholder="ADMIN_TOKEN">
+<label>Admin Token</label>
+<input id="token" placeholder="ADMIN TOKEN">
 
-  <label>PDF ID</label>
-  <input id="pdfId" placeholder="pdf1">
+<label>PDF ID</label>
+<div class="grid">
+  <input id="id" placeholder="pdf1">
+  <button id="loadBtn" class="secondary" onclick="loadPDF()">Load</button>
+</div>
 
-  <label>PDF Title</label>
-  <input id="pdfName" placeholder="SSC Maths Notes">
+<label>PDF Name</label>
+<input id="name">
 
-  <label>Price (in paise)</label>
-  <input id="pdfPrice" placeholder="9900">
+<label>Price (paise)</label>
+<input id="price">
 
-  <label>Download Files (JSON)</label>
-  <textarea id="pdfDownloads">
-[
-  {
-    "name": "SSC Maths Part-1",
-    "url": "https://pdf.autopush.in/ssc-maths-1.pdf"
-  },
-  {
-    "name": "SSC Maths Part-2",
-    "url": "https://pdf.autopush.in/ssc-maths-2.pdf"
-  }
-]
-  </textarea>
+<label>Downloads JSON</label>
+<textarea id="downloads" style="min-height: 423px;"></textarea>
 
-  <button onclick="savePDF()">💾 Save / Update PDF</button>
+<button id="saveBtn" style="margin-top:18px" onclick="savePDF()">Save / Update</button>
 
-  <div class="note">
-    ✔ Same form works for <b>Add</b> and <b>Update</b><br>
-    ✔ Existing ID → Update<br>
-    ✔ New ID → Insert
-  </div>
+<div id="msg" class="status"></div>
+
+<div class="footer">
+  • New ID → Add<br>
+  • Existing ID → Update
+</div>
+
+</div>
 </div>
 
 <script>
-async function savePDF(){
-  const token = document.getElementById("adminToken").value.trim();
-  const id = document.getElementById("pdfId").value.trim();
-  const name = document.getElementById("pdfName").value.trim();
-  const price = document.getElementById("pdfPrice").value.trim();
-  const downloadsRaw = document.getElementById("pdfDownloads").value.trim();
+const API = "https://api.raushan-d9d.workers.dev";
+let isNew = true;
 
-  if(!token || !id || !name || !price || !downloadsRaw){
-    alert("All fields required");
-    return;
-  }
-
-  let downloads;
-  try{
-    downloads = JSON.parse(downloadsRaw);
-  }catch(e){
-    alert("Invalid JSON in downloads");
-    return;
-  }
-
-  const res = await fetch("https://api.raushan-d9d.workers.dev/admin-save?token="+encodeURIComponent(token),{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({
-      id,
-      name,
-      price: Number(price),
-      downloads
-    })
-  });
-
-  const out = await res.json();
-  alert(JSON.stringify(out));
+function disable(btn, text){
+  btn.disabled = true;
+  btn.textContent = text;
 }
+function enable(btn, text){
+  btn.disabled = false;
+  btn.textContent = text;
+}
+function msg(text, type){
+  const m = document.getElementById("msg");
+  m.textContent = text;
+  m.className = "status " + type;
+}
+
+/* ========= LOAD ========= */
+async function loadPDF(){
+    const savedyy = document.getElementById("token").value;
+  if(savedyy){
+    localStorage.setItem("pdf_admin_token", savedyy);
+  }
+  const btn = document.getElementById("loadBtn");
+  disable(btn,"Loading…");
+
+  try{
+    const res = await fetch(`${API}/admin-get?token=${tokenVal()}&pdf=${val("id")}`);
+    const data = await res.json();
+
+    if(data.status === "not_found"){
+      isNew = true;
+      clearForm(false);
+      msg("New PDF ID — ready to add", "info");
+    }
+    else if(data.status === "success"){
+      isNew = false;
+      set("name", data.data.name);
+      set("price", data.data.price);
+      set("downloads", JSON.stringify(data.data.downloads, null, 2));
+      msg("PDF loaded successfully", "success");
+    }
+    else{
+      msg("Unable to load PDF", "error");
+    }
+
+  }catch(e){
+    msg("Server not responding", "error");
+  }
+
+  enable(btn,"Load");
+}
+
+/* ========= SAVE ========= */
+async function savePDF(){
+    const savedyy = document.getElementById("token").value;
+  if(savedyy){
+    localStorage.setItem("pdf_admin_token", savedyy);
+  }
+  const btn = document.getElementById("saveBtn");
+  disable(btn,"Saving…");
+
+  try{
+    const body = {
+      id: val("id"),
+      name: val("name"),
+      price: Number(val("price")),
+      downloads: JSON.parse(val("downloads")),
+      isNew
+    };
+
+    const res = await fetch(`${API}/admin-save?token=${tokenVal()}`,{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(body)
+    });
+
+    const out = await res.json();
+
+    if(out.status === "error"){
+      msg(out.message, "error");
+    }else{
+      isNew = false;
+      msg("Saved successfully", "success");
+    }
+
+  }catch(e){
+    msg("Invalid JSON format", "error");
+  }
+
+  enable(btn,"Save / Update");
+}
+
+/* ========= UTILS ========= */
+function val(id){ return document.getElementById(id).value.trim(); }
+function set(id,v){ document.getElementById(id).value = v; }
+function tokenVal(){ return val("token"); }
+function clearForm(clearId=true){
+  if(clearId) set("id","");
+  set("name","");
+  set("price","");
+  set("downloads","");
+}
+  
+// Auto load saved admin token
+(function loadAdminToken(){
+  const saved = localStorage.getItem("pdf_admin_token");
+  if(saved){
+    document.getElementById("token").value = saved;
+  }
+})();
 </script>
 
 </body>
