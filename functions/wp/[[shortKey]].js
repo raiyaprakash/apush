@@ -1,12 +1,54 @@
-export async function onRequestGet({ params, env }) {
-  const shortKey = params.shortKey;
+export async function onRequestGet({ params, request }) {
+  const path = params.path?.join("/") || "";
 
-  // Handle missing shortKey
-  if (!shortKey) {
-    return new Response("⚠️ Short key is missing. Please use a valid link.", { status: 400 });
+  // ❌ If path is missing
+  if (!path) {
+    return new Response("❌ File path missing", { status: 400 });
   }
 
-  return new Response(shortKey, { status: 400 })
+  // 🌐 Origin base URL (your VPS / origin server)
+  const ORIGIN = "https://cdn.autopush.in/wp";
 
- // return shortKey;
+  // 🔗 Preserve query string (?ver=6.9 etc.)
+  const url = new URL(request.url);
+  const originURL = `${ORIGIN}/${path}${url.search}`;
+
+  try {
+    // 📡 Fetch from origin
+    const response = await fetch(originURL, {
+      headers: {
+        "User-Agent": "Cloudflare-Worker-CDN",
+        "Accept": "*/*",
+      },
+      cf: {
+        cacheEverything: true,
+        cacheTtl: 86400 * 7, // 7 days
+      },
+    });
+
+    // ❌ Origin error handling
+    if (!response.ok) {
+      return new Response("❌ File not found on origin", { status: 404 });
+    }
+
+    // 📦 Clone headers
+    const headers = new Headers(response.headers);
+
+    // 🚀 Force CDN caching
+    headers.set(
+      "Cache-Control",
+      "public, max-age=604800, immutable"
+    );
+
+    headers.set("X-CDN", "Cloudflare-Worker");
+    headers.set("Access-Control-Allow-Origin", "*");
+
+    return new Response(response.body, {
+      status: response.status,
+      headers,
+    });
+
+  } catch (error) {
+    return new Response("🔥 CDN Fetch Error", { status: 500 });
+  }
 }
