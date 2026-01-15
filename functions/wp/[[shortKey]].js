@@ -7,7 +7,7 @@ export async function onRequestGet({ request, env }) {
     return new Response("⚠️ Short key is missing. Please use a valid link.", { status: 400 });
   }
 
-  return new Response(url, { status: 400 })
+  return new Response(url.replace("cdn.autopush.in/wp/", ""), { status: 400 })
 
  // return shortKey;
 }
