@@ -183,10 +183,6 @@ async function subscribePushManager(url) {
         var newSubscription = await self.registration.pushManager.getSubscription();
         newSubscription = newSubscription.toJSON();
 
-        if (firebase.messaging().vapidKey == null) {
-            firebase.messaging().usePublicVapidKey(options.vapid_public_key);
-        }
-
         const messaging = firebase.messaging();
         const token = await messaging.getToken({
             vapidKey: options.vapid_public_key,
