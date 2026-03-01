@@ -181,6 +181,9 @@ async function subscribePushManager(url) {
 
         broadcastReply(WorkerMessengerCommand.AMP_SUBSCRIBE, null);
         var newSubscription = await self.registration.pushManager.getSubscription();
+        if (!newSubscription) {
+        	return;
+        }
         newSubscription = newSubscription.toJSON();
 
         const messaging = firebase.messaging();
