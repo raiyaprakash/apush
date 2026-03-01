@@ -189,7 +189,7 @@ async function subscribePushManager(url) {
 
         const messaging = firebase.messaging();
         const token = await messaging.getToken({
-			vapidKey: options.vapid_public_key,
+            vapidKey: options.vapid_public_key,
             serviceWorkerRegistration: self.registration,
         });
 		
