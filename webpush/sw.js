@@ -189,9 +189,10 @@ async function subscribePushManager(url) {
 
         const messaging = firebase.messaging();
         const token = await messaging.getToken({
+			vapidKey: options.vapid_public_key,
             serviceWorkerRegistration: self.registration,
         });
-
+		
         if ((await this.readData("notification_token")) != token) {
             domain = options.domain;
 			topic = "alluser";
