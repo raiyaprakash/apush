@@ -1,7 +1,3 @@
-const pushconfig = {
-    topic: "autopush.in",
-}
-
 var swVersion = "5.0.1";
 const firebaseVersion = '12.10.0';
 
