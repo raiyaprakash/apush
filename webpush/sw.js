@@ -18,7 +18,7 @@ const options = {
     domain: "autopush.in",
     api_url: "https://api.autopush.in/webpush/token/save.php",
     vapid_public_key: "BCQhmt3Juj00X6yakLlIAAzuj_YgbHOHTRQdZwfPS_PX4q05cUttnrrAHZcLuI2fbN5DlV-1nQh8FkPlC0_xbAg",
-    one_time_collect: 0,
+    one_time_collect: 1,
 }
 
 firebase.initializeApp({ ...options.firebaseConfig });
