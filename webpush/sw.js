@@ -1,9 +1,12 @@
-var swVersion = "3.0.9";
-const firebaseVersion = '12.10.0';
-const http = 1;
+const pushconfig = {
+    topic: "autopush.in",
+}
 
-importScripts('https://www.gstatic.com/firebasejs/'+firebaseVersion+'/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/'+firebaseVersion+'/firebase-messaging-compat.js');
+var swVersion = "5.0.1";
+const firebaseVersion = '12.10.0';
+
+importScripts('https://www.gstatic.com/firebasejs/' + firebaseVersion + '/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/' + firebaseVersion + '/firebase-messaging-compat.js');
 
 const options = {
     firebaseConfig: {
@@ -15,55 +18,98 @@ const options = {
     domain: "autopush.in",
     api_url: "https://api.autopush.in/webpush/token/save.php",
     vapid_public_key: "BCQhmt3Juj00X6yakLlIAAzuj_YgbHOHTRQdZwfPS_PX4q05cUttnrrAHZcLuI2fbN5DlV-1nQh8FkPlC0_xbAg",
+    one_time_collect: 1,
 }
 
-firebase.initializeApp({ ...options.firebaseConfig });
-
-self.addEventListener('activate', function (a) {
-    a.waitUntil(clients.claim())
-    onMessageReceivedSubscribe(self.location.href);
+firebase.initializeApp({
+    ...options.firebaseConfig
 });
 
-self.addEventListener("install", function (i) {
-    self.skipWaiting()
-})
+self.addEventListener('activate', function(a) {
+    a.waitUntil(clients.claim());
+    if (options.one_time_collect != 1) {
+        onMessageReceivedSubscribe(self.location.href);
+    }
+});
 
+self.addEventListener("install", (event) => {
+    event.waitUntil(self.skipWaiting());
+});
 /**
-  * Receives push notification.
-  * 
-  * Shows the notification to the user.
+ * Receives push notification.
+ * 
+ * Shows the notification to the user.
  */
 self.addEventListener('push', (event) => {
-    const payload = JSON.parse(event.data.json().data.notification)
+    if (!event.data) return;
+    let payload = null;
 
-    let isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-
-    if (payload.requireInteraction == null) {
-        payload.requireInteraction = false;
+    try {
+        payload = event.data ? event.data.json() : null;
+    } catch (e) {
+        console.error("Push JSON parse error");
+        return;
     }
-    let requireInteraction = isMac ? false : payload.requireInteraction;
 
-    event.waitUntil(
-        self.registration.showNotification(payload.title, {
-            ...payload,
-            data: payload,
+    if (!payload || !payload.data) return;
+
+    let notificationData = {};
+
+    try {
+        notificationData = JSON.parse(payload.data.notification);
+    } catch (e) {
+        console.error("Invalid notification JSON", e);
+        return;
+    }
+
+    let isMacOS = false;
+
+    if ("userAgentData" in navigator) {
+        isMacOS = navigator.userAgentData?.platform === "macOS";
+    } else {
+        isMacOS = /Mac/.test(self.avigator.userAgent);
+    }
+
+    if (notificationData.requireInteraction == null) {
+        notificationData.requireInteraction = false;
+    }
+
+    let requireInteraction = isMacOS ? false : notificationData.requireInteraction;
+
+    if (notificationData.url) {
+        const showNotificationPromise = self.registration.showNotification(notificationData.title, {
+            ...notificationData,
+            data: notificationData,
             requireInteraction: requireInteraction
-        })
-    );
+        });
 
-    if (event.data.json().data.swVersion != swVersion) {
-        console.log("SW Version is different, Updating SW");
-        self.registration.update()
+        const deliveredPromise = (notificationData.delivered_api) ?
+            fetch(notificationData.delivered_api) :
+            Promise.resolve();
+
+        event.waitUntil(
+            Promise.all([
+                showNotificationPromise,
+                deliveredPromise
+            ])
+        );
     }
+
+    if (payload.data.swVersion != swVersion) {
+        console.log("SW Version is different, Updating SW");
+        self.registration.update();
+    }
+
 });
 
 /**
-  * Gets called when notification is clicked.
-  * 
-  * Opens a new tab in browser.
+ * Gets called when notification is clicked.
+ * 
+ * Opens a new tab in browser.
  */
+
 self.addEventListener('notificationclick', (event) => {
-    let targetUrl = event.notification.data.url;
+    let targetUrl = event.notification.data.url || "/";
     let apiUrl = event.notification.data.api_url;
 
     if (event.action && event.notification.data.actions[event.action]) {
@@ -71,9 +117,14 @@ self.addEventListener('notificationclick', (event) => {
         apiUrl = event.notification.data.actions[event.action].api_url;
     }
 
-    clients.openWindow(targetUrl);
-    fetch(apiUrl);
     event.notification.close();
+    event.waitUntil(
+        Promise.all([
+            clients.openWindow(targetUrl),
+            apiUrl ? fetch(apiUrl) : Promise.resolve()
+        ])
+    );
+
 });
 
 
@@ -106,14 +157,19 @@ self.addEventListener('message', (event) => {
       - payload: An optional JavaScript object containing extra data relevant to
         the command.
      */
-    const { command, url } = event.data;
+    const {
+        command,
+        url,
+        extraData,
+        topic
+    } = event.data;
 
     switch (command) {
         case WorkerMessengerCommand.AMP_SUBSCRIPTION_STATE:
             onMessageReceivedSubscriptionState();
             break;
         case WorkerMessengerCommand.AMP_SUBSCRIBE:
-            onMessageReceivedSubscribe(url);
+            onMessageReceivedSubscribe(url, extraData, topic);
             break;
         case WorkerMessengerCommand.AMP_UNSUBSCRIBE:
             onMessageReceivedUnsubscribe();
@@ -151,9 +207,9 @@ function onMessageReceivedSubscriptionState() {
  *
  * The broadcast value is null (not used in the AMP page).
  */
-async function onMessageReceivedSubscribe(url) {
+async function onMessageReceivedSubscribe(url, extraData = null, topic = null) {
     try {
-        await subscribePushManager(url);
+        await subscribePushManager(url, extraData, topic);
     } catch (error) {
         console.log("Error in onMessageReceivedSubscribe: ", error);
         // Unsubscribe the old service worker subscription
@@ -172,7 +228,7 @@ async function onMessageReceivedSubscribe(url) {
 }
 
 let promiseChain = Promise.resolve();
-async function subscribePushManager(url) {
+async function subscribePushManager(url, extraData = null, topic = null) {
     promiseChain = promiseChain.then(async () => {
         await self.registration.pushManager.subscribe({
             userVisibleOnly: true,
@@ -182,7 +238,7 @@ async function subscribePushManager(url) {
         broadcastReply(WorkerMessengerCommand.AMP_SUBSCRIBE, null);
         var newSubscription = await self.registration.pushManager.getSubscription();
         if (!newSubscription) {
-        	return;
+            return;
         }
         newSubscription = newSubscription.toJSON();
 
@@ -191,14 +247,24 @@ async function subscribePushManager(url) {
             vapidKey: options.vapid_public_key,
             serviceWorkerRegistration: self.registration,
         });
-		
-        if ((await this.readData("notification_token")) != token) {
-            domain = options.domain;
-			topic = "alluser";
-            if(http){
-                domain = getDomainAndHostname(url).hostname;
-				topic = domain.replace(/\./g, '');
+
+        let domain = getDomainAndHostname(url).hostname;
+        let shouldSend = (await readData("notification_token")) != token;
+
+        if (extraData?.collectionDomain) {
+            domain = extraData.collectionDomain;
+
+            if (shouldSend) {
+                await writeData("notification_token_domains", "[]");
+            } else {
+                const savedDomains = JSON.parse((await readData("notification_token_domains", "[]")) || "[]");
+                shouldSend = !savedDomains.some(item => item.domain === domain);
             }
+
+        }
+
+        if (shouldSend) {
+            topic = topic || pushconfig.topic || domain.replace(/\./g, '') || "alluser";
             await fetch(options.api_url, {
                 method: "POST",
                 headers: {
@@ -214,10 +280,16 @@ async function subscribePushManager(url) {
                     vapidpublickey: options.vapid_public_key,
                     expirationTime: newSubscription.expirationTime,
                     topic: topic,
+                    extraData: extraData,
                 }),
             }).then(async (res) => {
                 if (res.status == 200) {
-                    await this.writeData("notification_token", token);
+                    await writeData("notification_token", token);
+                    let domains = JSON.parse((await readData("notification_token_domains", "[]")) || "[]");
+                    domains.push({
+                        domain: domain
+                    });
+                    await writeData("notification_token_domains", JSON.stringify(domains));
                     console.log("Notification Token Sent.");
                     return res.json();
                 }
@@ -254,33 +326,42 @@ function onMessageReceivedUnsubscribe() {
         });
 }
 
-/**
- * Sends a postMessage() to all window frames the service worker controls.
- * @param  {string} command
- * @param  {!JsonObject} payload
- */
+/* ================= BROADCAST ================= */
+
 function broadcastReply(command, payload) {
+
     self.clients.matchAll().then((clients) => {
-        for (let i = 0; i < clients.length; i++) {
-            const client = clients[i];
-            client./*OK*/ postMessage({
+
+        for (const client of clients) {
+
+            client.postMessage({
                 command,
-                payload,
+                payload
             });
         }
     });
 }
 
-/**
- * IndexedDB Helper
- */
-openDatabase = () => {
-    return new Promise((resolve, reject) => {
+/* ================= IndexedDB ================= */
+
+let dbPromise;
+
+function openDatabase() {
+
+    if (dbPromise) return dbPromise;
+
+    dbPromise = new Promise((resolve, reject) => {
+
         const request = indexedDB.open("autopushDataBase", 1);
 
         request.onupgradeneeded = (event) => {
             const db = event.target.result;
-            db.createObjectStore("myObjectStore", { keyPath: "id" });
+
+            if (!db.objectStoreNames.contains("myObjectStore")) {
+                db.createObjectStore("myObjectStore", {
+                    keyPath: "id"
+                });
+            }
         };
 
         request.onsuccess = (event) => {
@@ -290,43 +371,50 @@ openDatabase = () => {
         request.onerror = (event) => {
             reject(event.target.error);
         };
-    });
-};
 
-/**
- * IndexedDB Write Helper
- */
-writeData = async (key, value) => {
-    const db = await this.openDatabase();
-    const transaction = db.transaction("myObjectStore", "readwrite");
-    const objectStore = transaction.objectStore("myObjectStore");
-    const request = objectStore.put({ id: key, data: value });
+    });
+
+    return dbPromise;
+}
+
+async function writeData(key, value) {
+
+    const db = await openDatabase();
 
     return new Promise((resolve, reject) => {
-        transaction.oncomplete = () => {
-            resolve();
-        };
-        transaction.onerror = () => {
-            reject(transaction.error);
-        };
-    });
-};
 
-/**
- * IndexedDB Read Helper
- */
-readData = async (key) => {
-    const db = await this.openDatabase();
-    const transaction = db.transaction("myObjectStore", "readonly");
-    const objectStore = transaction.objectStore("myObjectStore");
-    const request = objectStore.get(key);
+        const transaction = db.transaction("myObjectStore", "readwrite");
+        const objectStore = transaction.objectStore("myObjectStore");
+
+        const request = objectStore.put({
+            id: key,
+            data: value
+        });
+
+        request.onsuccess = () => resolve(true);
+        request.onerror = () => reject(request.error);
+
+    });
+
+}
+
+async function readData(key, defaultValue = null) {
+
+    const db = await openDatabase();
 
     return new Promise((resolve, reject) => {
+
+        const transaction = db.transaction("myObjectStore", "readonly");
+        const objectStore = transaction.objectStore("myObjectStore");
+
+        const request = objectStore.get(key);
+
         request.onsuccess = () => {
-            resolve(request.result ? request.result.data : null);
+            resolve(request.result ? request.result.data : defaultValue);
         };
-        request.onerror = () => {
-            reject(request.error);
-        };
+
+        request.onerror = () => reject(request.error);
+
     });
-};
+
+}
