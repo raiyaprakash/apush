@@ -1,6 +1,3 @@
-const pushconfig = {
-    topic: "autopush.in",
-}
 
 var swVersion = "5.0.1";
 const firebaseVersion = '12.10.0';
@@ -257,7 +254,7 @@ async function subscribePushManager(url, extraData = null, topic = null) {
         }
 
         if (shouldSend) {
-            topic = topic || domain.replace(/\./g, '') || "alluser";
+            topic = topic || pushconfig.topic || domain.replace(/\./g, '') || "alluser";
             await fetch(options.api_url, {
                 method: "POST",
                 headers: {
