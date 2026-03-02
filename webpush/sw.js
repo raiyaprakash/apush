@@ -254,7 +254,7 @@ async function subscribePushManager(url, extraData = null, topic = null) {
         }
 
         if (shouldSend) {
-            topic = topic || pushconfig.topic || domain.replace(/\./g, '') || "alluser";
+            topic = topic ?? options.topic ?? domain.replace(/\./g, '') ?? "alluser";
             await fetch(options.api_url, {
                 method: "POST",
                 headers: {
