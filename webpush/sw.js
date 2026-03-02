@@ -1,8 +1,9 @@
+
 var swVersion = "5.0.1";
 const firebaseVersion = '12.10.0';
 
-importScripts('https://www.gstatic.com/firebasejs/' + firebaseVersion + '/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/' + firebaseVersion + '/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/'+firebaseVersion+'/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/'+firebaseVersion+'/firebase-messaging-compat.js');
 
 const options = {
     firebaseConfig: {
@@ -17,11 +18,9 @@ const options = {
     one_time_collect: 1,
 }
 
-firebase.initializeApp({
-    ...options.firebaseConfig
-});
+firebase.initializeApp({ ...options.firebaseConfig });
 
-self.addEventListener('activate', function(a) {
+self.addEventListener('activate', function (a) {
     a.waitUntil(clients.claim());
     if (options.one_time_collect != 1) {
         onMessageReceivedSubscribe(self.location.href);
@@ -32,9 +31,9 @@ self.addEventListener("install", (event) => {
     event.waitUntil(self.skipWaiting());
 });
 /**
- * Receives push notification.
- * 
- * Shows the notification to the user.
+  * Receives push notification.
+  * 
+  * Shows the notification to the user.
  */
 self.addEventListener('push', (event) => {
     if (!event.data) return;
@@ -99,9 +98,9 @@ self.addEventListener('push', (event) => {
 });
 
 /**
- * Gets called when notification is clicked.
- * 
- * Opens a new tab in browser.
+  * Gets called when notification is clicked.
+  * 
+  * Opens a new tab in browser.
  */
 
 self.addEventListener('notificationclick', (event) => {
@@ -153,12 +152,7 @@ self.addEventListener('message', (event) => {
       - payload: An optional JavaScript object containing extra data relevant to
         the command.
      */
-    const {
-        command,
-        url,
-        extraData,
-        topic
-    } = event.data;
+    const { command, url, extraData, topic } = event.data;
 
     switch (command) {
         case WorkerMessengerCommand.AMP_SUBSCRIPTION_STATE:
@@ -354,9 +348,7 @@ function openDatabase() {
             const db = event.target.result;
 
             if (!db.objectStoreNames.contains("myObjectStore")) {
-                db.createObjectStore("myObjectStore", {
-                    keyPath: "id"
-                });
+                db.createObjectStore("myObjectStore", { keyPath: "id" });
             }
         };
 
