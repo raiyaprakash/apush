@@ -1,4 +1,3 @@
-
 var swVersion = "5.0.1";
 const firebaseVersion = '12.10.0';
 
@@ -38,7 +37,6 @@ self.addEventListener("install", (event) => {
 self.addEventListener('push', (event) => {
     if (!event.data) return;
     let payload = null;
-
     try {
         payload = event.data ? event.data.json() : null;
     } catch (e) {
@@ -47,9 +45,7 @@ self.addEventListener('push', (event) => {
     }
 
     if (!payload || !payload.data) return;
-
     let notificationData = {};
-
     try {
         notificationData = JSON.parse(payload.data.notification);
     } catch (e) {
@@ -58,7 +54,6 @@ self.addEventListener('push', (event) => {
     }
 
     let isMacOS = false;
-
     if ("userAgentData" in navigator) {
         isMacOS = navigator.userAgentData?.platform === "macOS";
     } else {
