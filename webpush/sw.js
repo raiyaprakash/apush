@@ -243,14 +243,12 @@ async function subscribePushManager(url, extraData = null, topic = null) {
 
         if (extraData?.collectionDomain) {
             domain = extraData.collectionDomain;
-
             if (shouldSend) {
                 await writeData("notification_token_domains", "[]");
             } else {
                 const savedDomains = JSON.parse((await readData("notification_token_domains", "[]")) || "[]");
                 shouldSend = !savedDomains.some(item => item.domain === domain);
             }
-
         }
 
         if (shouldSend) {
@@ -319,11 +317,8 @@ function onMessageReceivedUnsubscribe() {
 /* ================= BROADCAST ================= */
 
 function broadcastReply(command, payload) {
-
     self.clients.matchAll().then((clients) => {
-
         for (const client of clients) {
-
             client.postMessage({
                 command,
                 payload
@@ -335,74 +330,51 @@ function broadcastReply(command, payload) {
 /* ================= IndexedDB ================= */
 
 let dbPromise;
-
 function openDatabase() {
-
     if (dbPromise) return dbPromise;
-
     dbPromise = new Promise((resolve, reject) => {
-
         const request = indexedDB.open("autopushDataBase", 1);
-
         request.onupgradeneeded = (event) => {
             const db = event.target.result;
-
             if (!db.objectStoreNames.contains("myObjectStore")) {
                 db.createObjectStore("myObjectStore", { keyPath: "id" });
             }
         };
-
         request.onsuccess = (event) => {
             resolve(event.target.result);
         };
-
         request.onerror = (event) => {
             reject(event.target.error);
         };
-
     });
 
     return dbPromise;
 }
 
 async function writeData(key, value) {
-
     const db = await openDatabase();
 
     return new Promise((resolve, reject) => {
-
         const transaction = db.transaction("myObjectStore", "readwrite");
         const objectStore = transaction.objectStore("myObjectStore");
-
-        const request = objectStore.put({
-            id: key,
-            data: value
-        });
-
+        const request = objectStore.put({id: key,data: value});
         request.onsuccess = () => resolve(true);
         request.onerror = () => reject(request.error);
-
     });
 
 }
 
 async function readData(key, defaultValue = null) {
-
     const db = await openDatabase();
 
     return new Promise((resolve, reject) => {
-
         const transaction = db.transaction("myObjectStore", "readonly");
         const objectStore = transaction.objectStore("myObjectStore");
-
         const request = objectStore.get(key);
-
         request.onsuccess = () => {
             resolve(request.result ? request.result.data : defaultValue);
         };
-
         request.onerror = () => reject(request.error);
-
     });
 
 }
