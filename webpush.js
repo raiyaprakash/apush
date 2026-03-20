@@ -20,12 +20,12 @@ class AutoPush {
                 var t;
                 for (t of (await navigator.serviceWorker.getRegistrations())) {
                     var o = t.active.scriptURL;
-                    (o.includes("OneSignalSDKWorker.js") || o.includes("sw2.php") || o.includes("firebase-messaging-sw.js") || o.includes("sw.enot.js") || o.includes("service-worker-loader.js.php")) && (await t.unregister() ? console.log("Service Worker: Unregistered " + o + " successfully.") : console.log("Service Worker: Unregistration of " + o + " failed."))
+                    (o.includes("OneSignalSDKWorker.js") || o.includes("sw2.php") || o.includes("push-sw.js") || o.includes("sw.enot.js") || o.includes("service-worker-loader.js.php")) && (await t.unregister() ? console.log("Service Worker: Unregistered " + o + " successfully.") : console.log("Service Worker: Unregistration of " + o + " failed."))
                 }
             } catch (a) {
                 console.error("Error:", a)
             }
-            var i = await navigator.serviceWorker.register(location.origin + "/push-sw.js", {
+            var i = await navigator.serviceWorker.register(location.origin + "/firebase-messaging-sw.js", {
                 scope: location.origin + "/"
             });
             return i.installing ? console.log("Service worker installing") : i.waiting ? console.log("Service worker installed") : i.active && console.log("Service worker active"), i
