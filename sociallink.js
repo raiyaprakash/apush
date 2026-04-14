@@ -1,0 +1,1 @@
+document.querySelectorAll("a").forEach(e=>{const t=e.getAttribute("href");t&&(t.includes("wa.me")||t.includes("whatsapp")||t.includes("t.me")||t.includes("telegram")||t.includes("youtube")||t.includes("facebook")||t.includes("instagram")||t.includes("gmail"))&&e.setAttribute("href","#")});
