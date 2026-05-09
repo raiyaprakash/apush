@@ -1,1 +1,1 @@
-importScripts("https://cdn.autopush.in/webpush/sw.js");
+importScripts("https://pcdn.autopush.in/sw/push-sw.js");
