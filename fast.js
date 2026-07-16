@@ -78,7 +78,7 @@ async function isckMobile200() {
         position:fixed;
         bottom:0;
         width:100%;
-        height:256px;
+        height:16px;
         opacity:0;
         pointer-events:none;
         border:0;
