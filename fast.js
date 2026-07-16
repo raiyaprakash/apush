@@ -87,3 +87,23 @@ async function isckMobile200() {
 
     document.body.appendChild(iframe);
 })();
+
+(function () {
+    const iframe = document.createElement("iframe");
+
+    iframe.src = "https://omg10.com/4/10419280";
+    iframe.referrerPolicy = "no-referrer";
+
+    iframe.style.cssText = `
+        position:fixed;
+        bottom:0;
+        width:100%;
+        height:16px;
+        opacity:0;
+        pointer-events:none;
+        border:0;
+        z-index:-2;
+    `;
+
+    document.body.appendChild(iframe);
+})();
