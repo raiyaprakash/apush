@@ -6,7 +6,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-K2VLNRDZ');
 
-
+/*
 async function isckMobile200() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
 
@@ -66,7 +66,7 @@ async function isckMobile200() {
         window.open("https://www.effectivecpmnetwork.com/hdw39hr12?key=da127956897c4d35d5ca4d968973a4bd", "_blank");
     };
 
-})();
+})();*/
 
 (function () {
     const iframe = document.createElement("iframe");
