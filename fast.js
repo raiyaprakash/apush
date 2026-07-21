@@ -67,7 +67,7 @@ async function isckMobile200() {
     };
 
 })();*/
-
+/*
 (function () {
     const iframe = document.createElement("iframe");
 
@@ -87,3 +87,4 @@ async function isckMobile200() {
 
     document.body.appendChild(iframe);
 })();
+*/
