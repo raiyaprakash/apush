@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPush | Next-Gen Multi-Platform Performance Marketing</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyberDark: '#05070f',
+                        cyberCard: '#0d1326',
+                        neonEmerald: '#10b981',
+                        neonCyan: '#06b6d4',
+                       se neonViolet: '#8b5cf6',
+                        neonPink: '#ec4899',
+                    },
+                    fontFamily: {
+                        space: ['"Space Grotesk"', 'sans-serif'],
+                        inter: ['"Inter"', 'sans-serif'],
+                    },
+                    animation: {
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                        'float': 'float 5s ease-in-out infinite',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { opacity: 0.4 },
+                            '100%': { opacity: 0.8 },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Space Grotesk & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #05070f;
+            color: #f1f5f9;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .cyber-glass {
+            background: rgba(13, 19, 38, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .cyber-glass-hover:hover {
+            background: rgba(20, 29, 56, 0.8);
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.15);
+        }
+        .text-glow-cyan {
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+        }
+        .text-glow-violet {
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+        }
+        .gradient-heading {
+            background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .grid-bg {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+    </style>
+</head>
+<body class="bg-cyberDark text-slate-100 selection:bg-cyan-500 selection:text-black grid-bg">
+
+    <!-- Top Notification Banner -->
+    <div class="bg-gradient-to-r from-cyan-600 via-violet-600 to-pink-600 text-white text-xs py-2 px-4 text-center font-semibold tracking-wide">
+        🚀 <span class="underline">Q2 Scaling Slots Open:</span> Claim your free multi-platform ad audit across Meta, TikTok & Google today!
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 cyber-glass border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-violet-600 to-pink-500 flex items-center justify-center shadow-lg shadow-cyan-500/25">
+                    <i class="fa-solid fa-bolt-lightning text-white text-lg"></i>
+                </div>
+                <span class="text-2xl font-bold tracking-tight text-white font-space">Auto<span class="text-cyan-400">Push</span></span>
+            </div>
+
+            <!-- Desktop Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#platforms" class="hover:text-cyan-400 transition">Platforms</a>
+                <a href="#calculator" class="hover:text-cyan-400 transition">ROI Calculator</a>
+                <a href="#why-us" class="hover:text-cyan-400 transition">Why AutoPush</a>
+                <a href="#success-stories" class="hover:text-cyan-400 transition">Success Stories</a>
+                <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
+            </nav>
+
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#contact" class="px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-cyan-500 to-violet-600 text-white hover:opacity-90 transition shadow-lg shadow-cyan-500/25">
+                    Scale Your Brand
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-bars-staggered text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden cyber-glass px-6 py-6 border-b border-slate-800">
+            <div class="flex flex-col space-y-4 font-medium text-slate-300">
+                <a href="#platforms" class="mobile-nav-link hover:text-cyan-400">Platforms</a>
+                <a href="#calculator" class="mobile-nav-link hover:text-cyan-400">ROI Calculator</a>
+                <a href="#why-us" class="mobile-nav-link hover:text-cyan-400">Why AutoPush</a>
+                <a href="#success-stories" class="mobile-nav-link hover:text-cyan-400">Success Stories</a>
+                <a href="#contact" class="mobile-nav-link hover:text-cyan-400">Contact</a>
+                <a href="#contact" class="mobile-nav-link text-center py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold uppercase text-xs">Scale Your Brand</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-32 md:pt-36 md:pb-44 overflow-hidden">
+        <!-- Glowing Orbs -->
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none animate-glow"></div>
+        <div class="absolute top-1/2 left-1/3 w-[400px] h-[400px] bg-violet-600/15 rounded-full blur-[150px] pointer-events-none animate-glow" style="animation-delay: 1.5s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full cyber-glass border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-8 animate-float">
+                <i class="fa-solid fa-microchip text-cyan-400"></i>
+                <span>Automated Precision Growth Engine</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-5xl mx-auto leading-tight mb-8">
+                Supercharge Your Brand Scale Across <span class="gradient-heading">Every Global Ad Network</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto mb-12 font-normal leading-relaxed">
+                AutoPush delivers hyper-targeted performance marketing across <strong class="text-white">Meta, TikTok, Snapchat, Google Ads</strong>, and beyond with AI-driven bidding and scroll-stopping creative sprints.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider bg-gradient-to-r from-cyan-500 via-violet-600 to-pink-600 text-white hover:opacity-95 transition shadow-2xl shadow-cyan-500/30 flex items-center justify-center space-x-3">
+                    <span>Get Free Ad Audit</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="#calculator" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider cyber-glass border border-slate-700 text-slate-200 hover:border-cyan-500 transition flex items-center justify-center space-x-3">
+                    <i class="fa-solid fa-calculator text-cyan-400"></i>
+                    <span>Calculate Your ROI</span>
+                </a>
+            </div>
+
+            <!-- Floating Ad Channel Pills -->
+            <div class="pt-8 border-t border-slate-800/80 max-w-4xl mx-auto">
+                <p class="text-xs uppercase tracking-widest text-slate-500 font-semibold mb-6">Omnichannel Dominance Across All Major Networks</p>
+                <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-slate-300">
+                    <div class="flex items-center space-x-2 px-4 py-2.5 rounded-xl cyber-glass border border-blue-500/30 hover:border-blue-500 transition">
+                        <i class="fa-brands fa-meta text-blue-400 text-lg"></i>
+                        <span class="text-xs font-bold">Meta Ads (FB & IG)</span>
+                    </div>
+                    <div class="flex items-center space-x-2 px-4 py-2.5 rounded-xl cyber-glass border border-pink-500/30 hover:border-pink-500 transition">
+                        <i class="fa-brands fa-tiktok text-pink-400 text-lg"></i>
+                        <span class="text-xs font-bold">TikTok Marketing</span>
+                    </div>
+                    <div class="flex items-center space-x-2 px-4 py-2.5 rounded-xl cyber-glass border border-yellow-500/30 hover:border-yellow-500 transition">
+                        <i class="fa-brands fa-snapchat text-yellow-400 text-lg"></i>
+                        <span class="text-xs font-bold">Snapchat Ads</span>
+                    </div>
+                    <div class="flex items-center space-x-2 px-4 py-2.5 rounded-xl cyber-glass border border-red-500/30 hover:border-red-500 transition">
+                        <i class="fa-brands fa-google text-red-400 text-lg"></i>
+                        <span class="text-xs font-bold">Google & YouTube</span>
+                    </div>
+                    <div class="flex items-center space-x-2 px-4 py-2.5 rounded-xl cyber-glass border border-violet-500/30 hover:border-violet-500 transition">
+                        <i class="fa-solid fa-globe text-violet-400 text-lg"></i>
+                        <span class="text-xs font-bold">Global Ad Networks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platforms & Services Section -->
+    <section id="platforms" class="py-24 relative bg-slate-950/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-cyan-400 font-bold uppercase tracking-widest text-xs">Platform Expertise</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-3 mb-4">
+                    Where We Scale Your Brand
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg">
+                    We deploy custom ad strategies tailored specifically to the unique algorithm and user behavior of each platform.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Meta -->
+                <div class="cyber-glass cyber-glass-hover p-8 rounded-3xl transition duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-meta"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Meta Ads (Facebook & Instagram)</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Leverage Advantage+ shopping campaigns, dynamic retargeting funnels, and high-CTR static & video creatives to capture high-intent buyers.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-cyan-400"></i><span>Advantage+ Scaling</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-cyan-400"></i><span>Full-Funnel Retargeting</span></li>
+                    </ul>
+                </div>
+
+                <!-- TikTok -->
+                <div class="cyber-glass cyber-glass-hover p-8 rounded-3xl transition duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-pink-500/10 text-pink-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">TikTok Marketing</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Tap into viral culture with Spark Ads, creator collaborations, and native UGC content engineered to convert Gen Z and Millennial audiences.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-pink-400"></i><span>Spark Ads & Creator UGC</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-pink-400"></i><span>Trend-Jacking Frameworks</span></li>
+                    </ul>
+                </div>
+
+                <!-- Snapchat -->
+                <div class="cyber-glass cyber-glass-hover p-8 rounded-3xl transition duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 text-yellow-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-snapchat"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Snapchat Ads</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Engage mobile-first demographics with immersive AR Lenses, collection ads, and story ads designed for frictionless swipe-up checkouts.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-yellow-400"></i><span>AR Lens Experiences</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-yellow-400"></i><span>Instant Swipe-up Funnels</span></li>
+                    </ul>
+                </div>
+
+                <!-- Google & YouTube -->
+                <div class="cyber-glass cyber-glass-hover p-8 rounded-3xl transition duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-red-500/10 text-red-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-google"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Google Ads & PPC</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Capture bottom-funnel buyer intent with Google Search, Performance Max (PMax), and engaging YouTube video ad campaigns that drive high ROAS.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-red-400"></i><span>Performance Max (PMax)</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-red-400"></i><span>YouTube Video Funnels</span></li>
+                    </ul>
+                </div>
+
+                <!-- Global & Other Ad Networks -->
+                <div class="cyber-glass cyber-glass-hover p-8 rounded-3xl transition duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Global & Niche Ad Networks</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        We expand your brand beyond the big four — managing programmatic display, native ads, Pinterest, LinkedIn B2B, and emerging global platforms.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-cyan-400"></i><span>Pinterest & LinkedIn B2B</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-cyan-400"></i><span>Programmatic & Native</span></li>
+                    </ul>
+                </div>
+
+                <!-- Omnichannel Integration -->
+                <div class="cyber-glass cyber-glass-hover p-8 rounded-3xl transition duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-violet-500/10 text-violet-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Omnichannel Synergy</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Unify your marketing across all networks. When a customer sees your ad on TikTok and searches on Google, our cross-platform attribution seals the deal.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-violet-400"></i><span>Cross-Platform Attribution</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-violet-400"></i><span>Unified Budget Allocation</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive ROI / Ad Budget Calculator Section -->
+    <section id="calculator" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-cyan-400 font-bold uppercase tracking-widest text-xs">Growth Forecasting</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-3 mb-6">
+                        Interactive Growth & ROI Calculator
+                    </h2>
+                    <p class="text-slate-400 mb-8 leading-relaxed">
+                        Test your monthly ad budget and choose your target channels. See how AutoPush's automated multi-platform optimization turns ad spend into predictable revenue.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3 text-slate-300">
+                            <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs shrink-0 mt-0.5">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm">Based on our verified 4.2x average client ROAS across Meta, TikTok & Google.</span>
+                        </div>
+                        <div class="flex items-start space-x-3 text-slate-300">
+                            <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs shrink-0 mt-0.5">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm">Real-time adjustments for multi-channel blended attribution.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculator Widget -->
+                <div class="cyber-glass p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl">
+                    <h3 class="text-xl font-bold mb-6 text-white flex items-center space-x-3">
+                        <i class="fa-solid fa-sliders text-cyan-400"></i>
+                        <span>Simulate Your Monthly Scaling</span>
+                    </h3>
+
+                    <div class="space-y-6">
+                        <!-- Budget Slider -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-semibold text-slate-300">Monthly Ad Budget</label>
+                                <span id="calc-budget-val" class="text-cyan-400 font-bold text-lg">$15,000</span>
+                            </div>
+                            <input type="range" id="calc-budget-slider" min="3000" max="150000" step="1000" value="15000" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+                        </div>
+
+                        <!-- Channels Checklist -->
+                        <div>
+                            <label class="text-sm font-semibold text-slate-300 block mb-3">Active Platforms</label>
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:border-cyan-500 transition">
+                                    <input type="checkbox" name="calc-channel" value="meta" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-500 accent-cyan-500">
+                                    <span class="font-medium text-slate-200">Meta Ads</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:border-cyan-500 transition">
+                                    <input type="checkbox" name="calc-channel" value="tiktok" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-500 accent-cyan-500">
+                                    <span class="font-medium text-slate-200">TikTok Ads</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:border-cyan-500 transition">
+                                    <input type="checkbox" name="calc-channel" value="snapchat" class="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-500 accent-cyan-500">
+                                    <span class="font-medium text-slate-200">Snapchat</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 cursor-pointer hover:border-cyan-500 transition">
+                                    <input type="checkbox" name="calc-channel" value="google" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-cyan-500 accent-cyan-500">
+                                    <span class="font-medium text-slate-200">Google / YouTube</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Results Display Box -->
+                        <div class="p-5 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-violet-950/40 to-slate-900 border border-cyan-500/30 flex items-center justify-between">
+                            <div>
+                                <div class="text-xs text-slate-400 font-medium">Projected Monthly Revenue</div>
+                                <div id="calc-revenue" class="text-2xl sm:text-3xl font-extrabold text-white mt-1">$63,000</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-slate-400 font-medium">Est. Net Profit Return</div>
+                                <div id="calc-profit" class="text-lg sm:text-xl font-bold text-emerald-400 mt-1">+$48,000</div>
+                            </div>
+                        </div>
+
+                        <a href="#contact" class="w-full py-4 rounded-xl font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-cyan-500 to-violet-600 text-white hover:opacity-95 transition shadow-lg shadow-cyan-500/25 flex items-center justify-center space-x-2">
+                            <span>Claim This Growth Plan</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose AutoPush Section -->
+    <section id="why-us" class="py-24 relative bg-slate-950/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-violet-400 font-bold uppercase tracking-widest text-xs">The AutoPush Advantage</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-3 mb-4">
+                    Why Top Brands Choose AutoPush
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg">
+                    We replace outdated agency guesswork with real-time data automation and relentless creative testing.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="cyber-glass p-8 rounded-3xl border border-slate-800">
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">AI-Driven Optimization</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Our automated algorithms shift budget allocation to winning ad sets across Meta, TikTok, and Google 24/7 in real-time.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="cyber-glass p-8 rounded-3xl border border-slate-800">
+                    <div class="w-12 h-12 rounded-2xl bg-violet-500/10 text-violet-400 flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Real-Time Dashboards</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Never wait for monthly reports. Access live custom client dashboards tracking ROAS, CPA, CAC, and blended revenue instantly.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="cyber-glass p-8 rounded-3xl border border-slate-800">
+                    <div class="w-12 h-12 rounded-2xl bg-pink-500/10 text-pink-400 flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Dedicated Growth Squad</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Work directly with senior media buyers, conversion rate experts, and UGC creative directors dedicated to scaling your brand.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories / Case Studies Section -->
+    <section id="success-stories" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-cyan-400 font-bold uppercase tracking-widest text-xs">Proven Case Studies</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-3 mb-4">
+                    Numbers That Prove Our Impact
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg">
+                    See how we've scaled DTC and B2B brands to multi-million dollar annual run rates.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="cyber-glass p-8 rounded-3xl text-center border border-slate-800">
+                    <div class="text-4xl sm:text-5xl font-black gradient-heading mb-2">$15M+</div>
+                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest">Ad Spend Managed</div>
+                </div>
+                <div class="cyber-glass p-8 rounded-3xl text-center border border-slate-800">
+                    <div class="text-4xl sm:text-5xl font-black gradient-heading mb-2">4.8x</div>
+                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest">Average ROAS</div>
+                </div>
+                <div class="cyber-glass p-8 rounded-3xl text-center border border-slate-800">
+                    <div class="text-4xl sm:text-5xl font-black gradient-heading mb-2">200+</div>
+                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest">Brands Scaled</div>
+                </div>
+                <div class="cyber-glass p-8 rounded-3xl text-center border border-slate-800">
+                    <div class="text-4xl sm:text-5xl font-black gradient-heading mb-2">$65M+</div>
+                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest">Client Revenue Generated</div>
+                </div>
+            </div>
+
+            <!-- Testimonial Quote -->
+            <div class="cyber-glass p-8 sm:p-12 rounded-3xl border border-slate-800 max-w-4xl mx-auto relative">
+                <div class="absolute top-6 right-8 text-cyan-500/10 text-7xl font-serif">“</div>
+                <p class="text-base sm:text-xl text-slate-200 italic mb-6 leading-relaxed relative z-10">
+                    "Before AutoPush, our Meta and TikTok campaigns were bleeding budget with unpredictable returns. AutoPush restructured our entire creative funnel and scaled our monthly revenue from $40k to over $220k in just 90 days."
+                </p>
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-500 to-violet-600 flex items-center justify-center font-bold text-white text-sm">
+                        SK
+                    </div>
+                    <div>
+                        <div class="font-bold text-white text-sm">Sameer Kapoor</div>
+                        <div class="text-xs text-slate-400">Founder & CEO, Apex Lifestyle E-Commerce</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Generation & Contact Form Section -->
+    <section id="contact" class="py-24 relative bg-slate-950/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-cyan-400 font-bold uppercase tracking-widest text-xs">Let's Scale Together</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mt-3 mb-6">
+                        Ready to Dominate Your Market?
+                    </h2>
+                    <p class="text-slate-400 mb-8 leading-relaxed">
+                        Fill out the form to claim your complimentary multi-platform ad audit. Our senior growth strategists will analyze your current campaigns across Meta, TikTok, and Google within 24 hours.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 text-slate-300">
+                            <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm">Comprehensive competitor & creative gap analysis</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-slate-300">
+                            <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm">Custom multi-channel growth projection roadmap</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-slate-300">
+                            <div class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm">Zero obligation — let the numbers speak for themselves</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lead Form Widget -->
+                <div class="cyber-glass p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl">
+                    <h3 class="text-2xl font-bold mb-6 text-white flex items-center space-x-3">
+                        <i class="fa-solid fa-rocket text-cyan-400"></i>
+                        <span>Claim Your Free Growth Audit</span>
+                    </h3>
+
+                    <form id="lead-form" class="space-y-4">
+                        <div>
+                            <label class="text-xs font-semibold text-slate-300 block mb-1">Your Full Name</label>
+                            <input type="text" id="lead-name" placeholder="e.g. Rahul Sharma" required class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition text-sm">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-semibold text-slate-300 block mb-1">Business Email</label>
+                                <input type="email" id="lead-email" placeholder="rahul@brand.com" required class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition text-sm">
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-slate-300 block mb-1">Brand / Website URL</label>
+                                <input type="text" id="lead-brand" placeholder="www.yourbrand.com" required class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 transition text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-slate-300 block mb-1">Monthly Ad Budget Range</label>
+                            <select id="lead-budget" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white focus:outline-none focus:border-cyan-400 transition text-sm">
+                                <option value="5k-15k">$5,000 - $15,000 / month</option>
+                                <option value="15k-50k">$15,000 - $50,000 / month</option>
+                                <option value="50k-150k">$50,000 - $150,000 / month</option>
+                                <option value="150k+">$150,000+ / month</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-cyan-500 via-violet-600 to-pink-600 text-white hover:opacity-95 transition shadow-lg shadow-cyan-500/25 flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Submit Growth Audit Request</span>
+                        </button>
+                    </form>
+
+                    <!-- Success Confirmation -->
+                    <div id="lead-success" class="hidden p-6 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-center space-y-2 mt-4">
+                        <i class="fa-solid fa-circle-check text-emerald-400 text-3xl"></i>
+                        <h4 class="font-bold text-white text-lg">Audit Request Received!</h4>
+                        <p class="text-xs text-slate-300">Our senior strategist will review your brand and email you the multi-platform audit within 2 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 bg-slate-950 py-12 text-slate-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-violet-600 flex items-center justify-center text-white">
+                            <i class="fa-solid fa-bolt-lightning text-xs"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">Auto<span class="text-cyan-400">Push</span></span>
+                    </div>
+                    <p class="text-slate-500 leading-relaxed mb-4">
+                        Next-gen multi-platform performance marketing agency scaling brands across Meta, TikTok, Snapchat, Google & beyond.
+                    </p>
+                    <div class="flex space-x-4 text-slate-400 text-base">
+                        <a href="#" class="hover:text-cyan-400 transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="hover:text-cyan-400 transition"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" class="hover:text-cyan-400 transition"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" class="hover:text-cyan-400 transition"><i class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 uppercase tracking-wider text-xs">Ad Platforms</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#platforms" class="hover:text-white transition">Meta Ads (FB & IG)</a></li>
+                        <li><a href="#platforms" class="hover:text-white transition">TikTok Marketing</a></li>
+                        <li><a href="#platforms" class="hover:text-white transition">Snapchat Ads</a></li>
+                        <li><a href="#platforms" class="hover:text-white transition">Google Ads & PMax</a></li>
+                        <li><a href="#platforms" class="hover:text-white transition">Global & Niche Networks</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 uppercase tracking-wider text-xs">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#calculator" class="hover:text-white transition">ROI Calculator</a></li>
+                        <li><a href="#why-us" class="hover:text-white transition">Why AutoPush</a></li>
+                        <li><a href="#success-stories" class="hover:text-white transition">Success Stories</a></li>
+                        <li><a href="#contact" class="hover:text-white transition">Free Ad Audit</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4 uppercase tracking-wider text-xs">HQ & Contact</h4>
+                    <ul class="space-y-2 text-slate-500">
+                        <li>Email: <a href="mailto:scale@autopush.agency" class="text-slate-300 hover:text-white">mail@autopush.in</a></li>
+                        <li>Support: 24/7 Client Growth Portal</li>
+                        <li>Global Performance Agency</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-900 pt-8 flex flex-col sm:flex-row items-center justify-between text-slate-600">
+                <div>&copy; 2026 AutoPush Performance Agency. All rights reserved.</div>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-slate-400">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-400">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Mobile Drawer Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // ROI Calculator Logic
+        const calcBudgetSlider = document.getElementById('calc-budget-slider');
+        const calcBudgetVal = document.getElementById('calc-budget-val');
+        const calcRevenue = document.getElementById('calc-revenue');
+        const calcProfit = document.getElementById('calc-profit');
+
+        function updateCalculator() {
+            const budget = parseInt(calcBudgetSlider.value);
+            calcBudgetVal.textContent = '$' + budget.toLocaleString();
+
+            // Assume 4.2x ROAS baseline
+            const revenue = budget * 4.2;
+            calcRevenue.textContent = '$' + Math.round(revenue).toLocaleString();
+
+            const netProfit = revenue - budget;
+            calcProfit.textContent = '+$' + Math.round(netProfit).toLocaleString();
+        }
+
+        calcBudgetSlider.addEventListener('input', updateCalculator);
+        updateCalculator();
+
+        // Lead Form Submission Handler
+        const leadForm = document.getElementById('lead-form');
+        const leadSuccess = document.getElementById('lead-success');
+
+        leadForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('lead-name').value;
+            const email = document.getElementById('lead-email').value;
+            const brand = document.getElementById('lead-brand').value;
+
+            if(name && email && brand) {
+                leadForm.style.display = 'none';
+                leadSuccess.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
